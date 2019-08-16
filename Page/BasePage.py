@@ -1,12 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from Page.BaseElement import BaseElement
+from selenium.webdriver.chrome.options import Options
 
 
 class Page:
 
 	def __init__(self, config, url_extension=''):
 		self.driver = config.driver
+		self.headless = config.headless
 		self.page = self.web_driver()
 		if not url_extension:
 			self.url = config.url()
@@ -15,7 +17,10 @@ class Page:
 
 	def web_driver(self):
 		if self.driver == 'Chrome':
-			return webdriver.Chrome()
+			chrome_options = Options()
+			if self.headless:
+				chrome_options.add_argument("--headless")
+			return webdriver.Chrome(chrome_options=chrome_options)
 		elif self.driver == 'Safari':
 			return webdriver.Safari()
 
