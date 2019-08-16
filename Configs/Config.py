@@ -4,6 +4,7 @@ class Config:
 	def __init__(self):
 		# Set your configuration items here
 		self.driver = 'Chrome'
+		self.headless = False
 		self.base_url = ''
 		self.subdomain = ''
 		self.http_prefix = 'http://'
