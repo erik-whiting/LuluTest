@@ -9,6 +9,7 @@ class Page:
 	def __init__(self, config, url_extension=''):
 		self.driver = config.driver
 		self.headless = config.headless
+		self.full_path_to_driver = config.full_path_to_driver
 		self.page = self.web_driver()
 		if not url_extension:
 			self.url = config.url()
@@ -20,7 +21,9 @@ class Page:
 			chrome_options = Options()
 			if self.headless:
 				chrome_options.add_argument("--headless")
-			return webdriver.Chrome(chrome_options=chrome_options)
+				return webdriver.Chrome(chrome_options=chrome_options)
+			if self.full_path_to_driver:
+				return webdriver.Chrome(chrome_options=chrome_options, executable_path=self.full_path_to_driver)
 		elif self.driver == 'Safari':
 			return webdriver.Safari()
 
