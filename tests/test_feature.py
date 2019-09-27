@@ -1,7 +1,7 @@
 import unittest
 from Configs import Config
 from Page import BasePage
-from tests import test_helpers as helper
+from tests import helpers as helper
 
 
 class TestFeature(unittest.TestCase):
@@ -16,6 +16,6 @@ class TestFeature(unittest.TestCase):
 		bp.go()
 		bp.element_by("id", "sourceNews").input_text("Hello")
 		bp.element_by("id", "transmitter").click()
-		english_div = helper.test_element_text(bp.element_by("id", "en1"), "Hello")
+		english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
 		self.assertTrue(english_div)
 		bp.close()
