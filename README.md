@@ -10,13 +10,13 @@ LuluTest is designed to be used alone, so there is no need to import
 the project into your test harness, although you can if you want.
 
 The framework has three main classes: `Config`, `Page`, and `BaseElement`
-that come together to provide you with the ability to robust automated tests. The
+that come together to provide you with the ability to produce robust automated tests. The
 basic work flow for creating a test is as such:
 
 * Create a `Config` object
   * This object sets the URL, specific WebDriver, and whether or not
   the driver is headless. You can also optinally set the subdomain and port
-  numbers
+  numbers of the URL
 * Create a `Page` object with the `Config` object
 * In your tests, build `BaseElement` objects with the `Page` method `element_by`
 and then use the `BaseElement` methods to create your tests.
@@ -55,19 +55,26 @@ There are two main design philosophies driving the development of LuluTest:
 1. Hide the tedium and peculiarities inherent in browser automation
 from the test scripts themselves, allowing testers to write efficient
 and robust tests faster
-2. Simplify the test writing process as much as possible allowing non-technical
-users to contribute basic test cases while freeing technical
-users to focus on more complicated problems.
+2. Simplify the test writing process as much as possible so non-technical
+users can contribute basic test cases while freeing technical
+users to focus on more technically complex issues.
 
-This philosophies are implemented mostly by keeping the sometimes slow response
+These philosophies are implemented mostly by keeping the sometimes slow response
 time of web elements in mind. The project aims to avoid explicit waits and
 sleeps as much as possible.
+
+## Future Work
+
+The ultimate goal of LuluTest is to become a *domain specific language* for
+testing that could be further implemented and extended with other DSLs to
+create a medium of communication for developers and domain experts.
 
 ## Contribution Guide
 
 If you would like to contribute to development, please pull the latest version
-of master, create a local branch with a descriptive name, and create a pull
-request when you are finished.
+of development, create a local branch with a descriptive name, write your code,
+and push the branch to the repository. After this, create a pull request for your
+feature branch to *the development branch.* Please do not create PRs against the master branch.
 
 Pull requests without tests will most likely be rejected unless the work
 you've done is minor enough that a test would be overkill. As of writing
