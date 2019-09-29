@@ -1,11 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from Page.BaseElement import BaseElement
+from page.base_element import BaseElement
 from selenium.webdriver.chrome.options import Options
 
 
-class Page:
-
+class PageBuilder:
 	def __init__(self, config, url_extension=''):
 		self.driver = config.driver
 		self.options_list = config.options_list
@@ -27,6 +26,11 @@ class Page:
 			options.add_argument("--headless")
 
 		return options
+
+
+class Page(PageBuilder):
+	def __init__(self, config, url_extension=''):
+		PageBuilder.__init__(self, config, url_extension)
 
 	def go(self):
 		self.page.get(self.url)

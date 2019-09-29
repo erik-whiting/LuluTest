@@ -1,18 +1,18 @@
 import unittest
-from Configs import Config
-from Page import BasePage
+from configs import config
+from page import page
 from tests import helpers as helper
 
 
 class TestFeature(unittest.TestCase):
-	cf = Config.Config()
+	cf = config.Config()
 	cf.base_url = 'erikwhiting.com'
 	cf.subdomain = ''
 	cf.base_url += '/newsOutlet'
 
 	def test_write_and_click_with_headless(self):
 		self.cf.options_list = ["headless"]
-		bp = BasePage.Page(self.cf)
+		bp = page.Page(self.cf)
 		bp.go()
 		bp.element_by("id", "sourceNews").input_text("Hello")
 		bp.element_by("id", "transmitter").click()
@@ -22,7 +22,7 @@ class TestFeature(unittest.TestCase):
 
 	def test_write_and_click_without_headless(self):
 		self.cf.options_list = []
-		bp = BasePage.Page(self.cf)
+		bp = page.Page(self.cf)
 		bp.go()
 		bp.element_by("id", "sourceNews").input_text("Hello")
 		bp.element_by("id", "transmitter").click()
