@@ -4,11 +4,12 @@ class Config:
 	def __init__(self):
 		# Set your configuration items here
 		self.driver = 'Chrome'
-		self.headless = False
 		self.base_url = ''
 		self.subdomain = ''
 		self.http_prefix = 'http://'
 		self.port = ''
+		# Example: self.options_list = ["headless"]
+		self.options_list = []
 
 	def url(self):
 		full_url = self.base_url
