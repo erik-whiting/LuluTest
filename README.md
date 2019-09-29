@@ -71,15 +71,4 @@ create a medium of communication for developers and domain experts.
 
 ## Contribution Guide
 
-If you would like to contribute to development, please pull the latest version
-of development, create a local branch with a descriptive name, write your code,
-and push the branch to the repository. After this, create a pull request for your
-feature branch to *the development branch.* Please do not create PRs against the master branch.
-
-Pull requests without tests will most likely be rejected unless the work
-you've done is minor enough that a test would be overkill. As of writing
-the readme, the project is not big enough to enforce too many more guidelines
-than this.
-
-Keep in mind, this framework is designed to be a tool for software
-testing and quality assurance, lets practice what we preach.
+Please see the [Contribution Guide](./CONTRIBUTING.md)
