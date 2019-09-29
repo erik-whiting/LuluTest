@@ -38,6 +38,12 @@ class Page(PageBuilder):
 	def close(self):
 		self.page.close()
 
+	def page_source(self):
+		return self.page.page_source
+
+	def get_url(self):
+		return self.page.current_url
+
 	def element_by(self, indicator, locator):
 		indicator = indicator.lower()
 		indicator_converter = {
