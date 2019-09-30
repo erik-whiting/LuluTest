@@ -82,3 +82,6 @@ create a medium of communication for developers and domain experts.
 ## Contribution Guide
 
 Please see the [Contribution Guide](./CONTRIBUTING.md)
+
+## Set-Up Guide
+For setting up a local environment to contirbute to testing, please go to the [Set-Up Guide](./SETUP.md)
