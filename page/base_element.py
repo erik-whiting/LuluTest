@@ -18,6 +18,9 @@ class BaseElement:
 	def click(self):
 		self.element.click()
 
+	def get(self, attribute):
+		return self.element.get_attribute(attribute)
+
 	def input_text(self, text):
 		self.element.send_keys(text)
 
