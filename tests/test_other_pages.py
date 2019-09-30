@@ -9,6 +9,7 @@ class TestOtherPages(unittest.TestCase):
 		cf.http_prefix = 'http://'
 		cf.base_url = 'www.math.com/'
 		cf.base_url += 'students/calculators/source/basic.htm'
+		cf.options_list.append("headless")
 		bp = page.Page(cf)
 		bp.go()
 		bp.element_by("name", "five").click()
