@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/erik-whiting/LuluTest.svg?branch=development)](https://travis-ci.org/erik-whiting/LuluTest)
 # LuluTest
  
 LuluTest is an open source testing framework using Python and Selenium.
