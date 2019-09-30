@@ -1,15 +1,18 @@
 language: python
 python:
     - "3.6"
-install:
-  - pip install -r requirements.txt
 
 addons:
   chrome: stable
 
-script: python -m unittest discover tests
+install:
+  - pip install -r requirements.txt
+  - wget -N http://chromedriver.storage.googleapis.com/2.26/chromedriver_linux64.zip -P ~/
+  - unzip ~/chromedriver_linux64.zip -d ~/
+  - rm ~/chromedriver_linux64.zip
+  - sudo mv -f ~/chromedriver /usr/local/share/
+  - sudo chmod +x /usr/local/share/chromedriver
+  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 
-before_script:
-  - wget http://chromedriver.storage.googleapis.com/2.26/chromedriver_linux64.zip
-  - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python3.6/bin/
-  - export CHROME_BIN=chromium-browser
+
+script: python -m unittest discover tests
