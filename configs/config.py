@@ -10,6 +10,8 @@ class Config:
 		self.subdomain = ''
 		self.http_prefix = 'http://'
 		self.port = ''
+		# Example: self.options_list = ["headless"]
+		self.options_list = []
 
 	def url(self):
 		full_url = self.base_url
