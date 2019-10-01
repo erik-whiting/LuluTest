@@ -57,3 +57,17 @@ class Page(PageBuilder):
 			"tag": By.TAG_NAME
 		}
 		return BaseElement(indicator_converter.get(indicator), locator, self.page)
+
+	@staticmethod
+	def do(action, element, data=''):
+		action = action.lower()
+		if action == "click":
+			element.click()
+		elif action == "type":
+			element.input_text(data)
+		elif action == "clear":
+			element.clear()
+		elif action == "clear text":
+			element.clear_text()
+		elif action == "select":
+			element.select_drop_down(data)
