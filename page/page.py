@@ -47,6 +47,9 @@ class Page(PageBuilder):
 	def get_url(self):
 		return self.page.current_url
 
+	def set_url(self, url):
+		self.page.get(self.url)
+
 	def element_by(self, indicator, locator):
 		indicator = indicator.lower()
 		indicator_converter = {
