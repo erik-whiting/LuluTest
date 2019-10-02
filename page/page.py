@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from page.base_element import BaseElement
+from page.alert_element import AlertElement
 from page.step import Step
 from selenium.webdriver.chrome.options import Options
 from typing import List, Tuple, Any
@@ -38,6 +39,9 @@ class Page(PageBuilder):
 	def go(self):
 		self.page.get(self.url)
 
+	def refresh(self):
+		self.page.refresh()
+
 	def close(self):
 		self.page.close()
 
@@ -46,6 +50,9 @@ class Page(PageBuilder):
 
 	def get_url(self):
 		return self.page.current_url
+
+	def navigate_to(self, url):
+		self.page.get(url)
 
 	def element_by(self, indicator, locator, name=''):
 		indicator = indicator.lower()
@@ -80,6 +87,9 @@ class Page(PageBuilder):
 				self.collect_anonymous_element(collection_instruction)
 			elif len(collection_instruction) == 3:
 				self.collect_named_element(collection_instruction)
+
+	def get_alert(self):
+		return AlertElement(self.page)
 
 	@staticmethod
 	def do_step(*args):
