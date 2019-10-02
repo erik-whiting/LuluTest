@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from page.base_element import BaseElement
+from page.step import Step
 from selenium.webdriver.chrome.options import Options
 
 
@@ -59,15 +60,29 @@ class Page(PageBuilder):
 		return BaseElement(indicator_converter.get(indicator), locator, self.page)
 
 	@staticmethod
-	def do(action, element, data=''):
-		action = action.lower()
+	def do_step(*args):
+		# Handle a step object or array
+		if len(args) == 2:
+			step = Step(args[0], args[1])
+		elif len(args) == 3:
+			step = Step(args[0], args[1], args[2])
+		else:
+			step = args[0]
+
+		action = step.action.lower()
 		if action == "click":
-			element.click()
+			step.element.click()
 		elif action == "type":
-			element.input_text(data)
+			step.element.input_text(step.data)
 		elif action == "clear":
-			element.clear()
+			step.element.clear()
 		elif action == "clear text":
-			element.clear_text()
+			step.element.clear_text()
 		elif action == "select":
-			element.select_drop_down(data)
+			step.element.select_drop_down(step.data)
+
+	def do(self, steps):
+		if not isinstance(steps, list):
+			steps = [steps]
+		for step in steps:
+			self.do_step(step)
