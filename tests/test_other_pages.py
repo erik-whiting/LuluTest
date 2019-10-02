@@ -2,7 +2,6 @@ import unittest
 from configs import config
 from page import page
 
-from selenium.common.exceptions import NoAlertPresentException
 
 class TestOtherPages(unittest.TestCase):
 	def test_calculator_page(self):

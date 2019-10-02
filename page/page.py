@@ -6,6 +6,7 @@ from page.step import Step
 from selenium.webdriver.chrome.options import Options
 from typing import List, Tuple
 
+
 class PageBuilder:
 	def __init__(self, config, url_extension=''):
 		self.driver = config.driver

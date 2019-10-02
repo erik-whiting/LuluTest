@@ -1,6 +1,7 @@
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
+
 class AlertElement:
 	def __init__(self, driver):
 		self.driver = driver
