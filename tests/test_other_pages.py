@@ -61,13 +61,18 @@ class TestOtherPages(unittest.TestCase):
 		bp.go()
 
 		bp.element_by("xpath", "(//button[@class='btn_primary btn_inventory'])[1]").click()
-		bp.element_by("xpath", "(//button[@class='btn_primary btn_inventory'])[2]").click()
+		item_name = bp.element_by("xpath", "(//div[@class='inventory_item_name'])[1]").get("innerHTML")
 		items_in_cart = bp.element_by("class", "shopping_cart_badge").get("innerHTML")
-		self.assertEqual(items_in_cart, "2")
+		self.assertEqual(items_in_cart, "1")
 
 		bp.go()
 
 		items_in_cart = bp.element_by("class", "shopping_cart_badge").get("innerHTML")
-		self.assertEqual(items_in_cart, "2")
+		self.assertEqual(items_in_cart, "1")
+
+		bp.set_url('https://www.saucedemo.com/cart.html')
+
+		inventory_item_name = bp.element_by("class", "inventory_item_name").get("innerHTML")
+		self.assertEqual(item_name, inventory_item_name)
 
 		bp.close()
