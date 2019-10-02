@@ -36,6 +36,33 @@ class TestFeature(unittest.TestCase):
 			current_url = current_url[:-1]
 		self.assertEqual(self.cf.url(), current_url)
 
+	def test_page_refresh(self):
+		self.cf.options_list = ["headless"]
+		bp = page.Page(self.cf)
+		bp.go()
+
+		bp.refresh()
+		current_url = bp.get_url()
+		if current_url[current_url.__len__()-1] == "/":
+			current_url = current_url[:-1]
+		self.assertEqual(self.cf.url(), current_url)
+
+	def test_page_change_url(self):
+		self.cf.options_list = ["headless"]
+		bp = page.Page(self.cf)
+		bp.go()
+
+		current_url = bp.get_url()
+		if current_url[current_url.__len__()-1] == "/":
+			current_url = current_url[:-1]
+		self.assertEqual(self.cf.url(), current_url)
+
+		bp.navigate_to('https://github.com')
+		current_url = bp.get_url()
+		if current_url[current_url.__len__()-1] == "/":
+			current_url = current_url[:-1]
+		self.assertEqual('https://github.com', current_url)
+
 	def test_do_step(self):
 		self.cf.options_list.append("headless")
 		bp = page.Page(self.cf)
