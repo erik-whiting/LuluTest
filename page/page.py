@@ -1,10 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from page.base_element import BaseElement
+from page.alert_element import AlertElement
 from page.step import Step
 from selenium.webdriver.chrome.options import Options
 from typing import List, Tuple
-
 
 class PageBuilder:
 	def __init__(self, config, url_extension=''):
@@ -72,6 +72,9 @@ class Page(PageBuilder):
 			self.elements.append(
 				self.element_by(collection_instruction[0], collection_instruction[1])
 			)
+
+	def get_alert(self):
+		return AlertElement(self.page)
 
 	@staticmethod
 	def do_step(*args):
