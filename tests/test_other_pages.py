@@ -70,7 +70,7 @@ class TestOtherPages(unittest.TestCase):
 		items_in_cart = bp.element_by("class", "shopping_cart_badge").get("innerHTML")
 		self.assertEqual(items_in_cart, "1")
 
-		bp.set_url('https://www.saucedemo.com/cart.html')
+		bp.navigate_to('https://www.saucedemo.com/cart.html')
 
 		inventory_item_name = bp.element_by("class", "inventory_item_name").get("innerHTML")
 		self.assertEqual(item_name, inventory_item_name)
