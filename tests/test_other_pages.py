@@ -2,6 +2,7 @@ import unittest
 from configs import config
 from page import page
 
+from selenium.common.exceptions import NoAlertPresentException
 
 class TestOtherPages(unittest.TestCase):
 	def test_calculator_page(self):
@@ -74,5 +75,58 @@ class TestOtherPages(unittest.TestCase):
 
 		inventory_item_name = bp.element_by("class", "inventory_item_name").get("innerHTML")
 		self.assertEqual(item_name, inventory_item_name)
+
+		bp.close()
+
+	def test_javascript_alert(self):
+		cf = config.Config()
+		cf.http_prefix = 'https://'
+		cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
+		cf.options_list.append("headless")
+		bp = page.Page(cf)
+		bp.go()
+
+		bp.element_by("xpath", "(//button)[1]").click()
+		alert = bp.get_alert()
+
+		self.assertEqual(alert.text, "I am a JS Alert")
+
+		alert.accept()
+		bp.close()
+
+	def test_javascript_confirm(self):
+		cf = config.Config()
+		cf.http_prefix = 'https://'
+		cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
+		cf.options_list.append("headless")
+		bp = page.Page(cf)
+		bp.go()
+
+		bp.element_by("xpath", "(//button)[2]").click()
+		alert = bp.get_alert()
+
+		self.assertEqual(alert.text, "I am a JS Confirm")
+
+		alert.dismiss()
+		bp.close()
+
+	def test_javascript_prompt(self):
+		cf = config.Config()
+		cf.http_prefix = 'https://'
+		cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
+		cf.options_list.append("headless")
+		bp = page.Page(cf)
+		bp.go()
+
+		bp.element_by("xpath", "(//button)[3]").click()
+		alert = bp.get_alert()
+
+		self.assertEqual(alert.text, "I am a JS prompt")
+
+		alert.send_keys("This is a test")
+		alert.accept()
+
+		result = bp.element_by("id", "result").get("innerHTML")
+		self.assertEqual(result, "You entered: This is a test")
 
 		bp.close()
