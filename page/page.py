@@ -4,7 +4,7 @@ from page.base_element import BaseElement
 from page.alert_element import AlertElement
 from page.step import Step
 from selenium.webdriver.chrome.options import Options
-from typing import List, Tuple
+from typing import List, Tuple, Any
 
 
 class PageBuilder:
@@ -54,7 +54,7 @@ class Page(PageBuilder):
 	def navigate_to(self, url):
 		self.page.get(url)
 
-	def element_by(self, indicator, locator):
+	def element_by(self, indicator, locator, name=''):
 		indicator = indicator.lower()
 		indicator_converter = {
 			"id": By.ID,
@@ -66,13 +66,27 @@ class Page(PageBuilder):
 			"partial link": By.PARTIAL_LINK_TEXT,
 			"tag": By.TAG_NAME
 		}
-		return BaseElement(indicator_converter.get(indicator), locator, self.page)
+		return BaseElement(indicator_converter.get(indicator), locator, self.page, name)
 
-	def collect_elements(self, collection_instructions: List[Tuple[str, str]]):
+	def element(self, name) -> BaseElement:
+		return [elem for elem in self.elements if elem.name == name][0]
+
+	def collect_anonymous_element(self, collection_instruction: Tuple[str, str]):
+		self.elements.append(
+			self.element_by(collection_instruction[0], collection_instruction[1])
+		)
+
+	def collect_named_element(self, collection_instruction: Tuple[str, str, str]):
+		self.elements.append(
+			self.element_by(collection_instruction[0], collection_instruction[1], collection_instruction[2])
+		)
+
+	def collect_elements(self, collection_instructions: List[Any]):
 		for collection_instruction in collection_instructions:
-			self.elements.append(
-				self.element_by(collection_instruction[0], collection_instruction[1])
-			)
+			if len(collection_instruction) == 2:
+				self.collect_anonymous_element(collection_instruction)
+			elif len(collection_instruction) == 3:
+				self.collect_named_element(collection_instruction)
 
 	def get_alert(self):
 		return AlertElement(self.page)

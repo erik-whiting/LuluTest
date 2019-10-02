@@ -103,3 +103,20 @@ class TestFeature(unittest.TestCase):
 		bp.do(steps)
 		english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
 		self.assertTrue(english_div)
+
+	def test_named_elements(self):
+		self.cf.options_list.append("headless")
+		bp = page.Page(self.cf)
+		bp.go()
+		bp.collect_elements([
+			("id", "sourceNews", "input"),
+			("id", "transmitter", "button")
+		])
+		steps = [
+			step.Step("type", bp.element("input"), "Hello"),
+			step.Step("click", bp.element("button"))
+		]
+		bp.do(steps)
+		english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
+		self.assertTrue(english_div)
+
