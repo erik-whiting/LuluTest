@@ -3,3 +3,5 @@ class Step:
 		self.action = action
 		self.element = element
 		self.data = data
+	def explain(self):
+		print("This step {0} {1} into a {2} element of {3} {4}".format(self.action, self.data,self.element.element.tag_name, self.element.by, self.element.value))
