@@ -38,6 +38,9 @@ class Page(PageBuilder):
 	def go(self):
 		self.page.get(self.url)
 
+	def refresh(self):
+		self.page.refresh()
+
 	def close(self):
 		self.page.close()
 
@@ -46,6 +49,9 @@ class Page(PageBuilder):
 
 	def get_url(self):
 		return self.page.current_url
+
+	def navigate_to(self, url):
+		self.page.get(url)
 
 	def element_by(self, indicator, locator):
 		indicator = indicator.lower()
