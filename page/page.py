@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from page.base_element import BaseElement
 from page.step import Step
 from selenium.webdriver.chrome.options import Options
+from typing import List, Tuple
 
 
 class PageBuilder:
@@ -10,6 +11,7 @@ class PageBuilder:
 		self.driver = config.driver
 		self.options_list = config.options_list
 		self.page = self.web_driver()
+		self.elements = []
 		if not url_extension:
 			self.url = config.url()
 		else:
@@ -58,6 +60,12 @@ class Page(PageBuilder):
 			"tag": By.TAG_NAME
 		}
 		return BaseElement(indicator_converter.get(indicator), locator, self.page)
+
+	def collect_elements(self, collection_instructions: List[Tuple[str, str]]):
+		for collection_instruction in collection_instructions:
+			self.elements.append(
+				self.element_by(collection_instruction[0], collection_instruction[1])
+			)
 
 	@staticmethod
 	def do_step(*args):
