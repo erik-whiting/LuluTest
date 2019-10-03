@@ -1,6 +1,6 @@
 import unittest
 from configs import config
-from page import page
+from page import page, base_element
 
 
 class TestBasePage(unittest.TestCase):
@@ -25,3 +25,29 @@ class TestBasePage(unittest.TestCase):
 		self.cf.options_list = []
 		bp = page.Page(self.cf)
 		self.assertNotIn("headless", bp.options_list)
+
+	def test_anonymous_elements(self):
+		cf = config.Config()
+		cf.base_url = 'erikwhiting.com'
+		cf.subdomain = ''
+		cf.base_url += '/newsOutlet'
+		cf.options_list = ['headless']
+		bp = page.Page(cf)
+		bp.go()
+		elem = ("id", "transmitter")
+		bp.collect_elements([elem])
+		element = bp.element(0)
+		self.assertTrue(isinstance(element, base_element.BaseElement))
+
+	def test_named_elements(self):
+		cf = config.Config()
+		cf.base_url = 'erikwhiting.com'
+		cf.subdomain = ''
+		cf.base_url += '/newsOutlet'
+		cf.options_list = ['headless']
+		bp = page.Page(cf)
+		bp.go()
+		elem = ("id", "transmitter", "name")
+		bp.collect_elements([elem])
+		element = bp.element("name")
+		self.assertTrue(isinstance(element, base_element.BaseElement))

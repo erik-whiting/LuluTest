@@ -69,16 +69,20 @@ class Page(PageBuilder):
 		return BaseElement(indicator_converter.get(indicator), locator, self.page, name)
 
 	def element(self, name) -> BaseElement:
-		return [elem for elem in self.elements if elem.name == name][0]
+		if isinstance(name, str):
+			elem = [elem for elem in self.elements if elem[2] == name][0]
+		else:
+			elem = self.elements[name]
+		return self.element_by(elem[0], elem[1])
 
 	def collect_anonymous_element(self, collection_instruction: Tuple[str, str]):
 		self.elements.append(
-			self.element_by(collection_instruction[0], collection_instruction[1])
+			(collection_instruction[0], collection_instruction[1])
 		)
 
 	def collect_named_element(self, collection_instruction: Tuple[str, str, str]):
 		self.elements.append(
-			self.element_by(collection_instruction[0], collection_instruction[1], collection_instruction[2])
+			(collection_instruction[0], collection_instruction[1], collection_instruction[2])
 		)
 
 	def collect_elements(self, collection_instructions: List[Any]):
@@ -91,8 +95,7 @@ class Page(PageBuilder):
 	def get_alert(self):
 		return AlertElement(self.page)
 
-	@staticmethod
-	def do_step(*args):
+	def do_step(self, *args):
 		# Handle a step object or array
 		if len(args) == 2:
 			step = Step(args[0], args[1])
@@ -101,17 +104,22 @@ class Page(PageBuilder):
 		else:
 			step = args[0]
 
+		if isinstance(step.element, BaseElement):
+			element = step.element
+		else:
+			element = self.element_by(step.element[0], step.element[1])
+
 		action = step.action.lower()
 		if action == "click":
-			step.element.click()
+			element.click()
 		elif action == "type":
-			step.element.input_text(step.data)
+			element.input_text(step.data)
 		elif action == "clear":
-			step.element.clear()
+			element.clear()
 		elif action == "clear text":
-			step.element.clear_text()
+			element.clear_text()
 		elif action == "select":
-			step.element.select_drop_down(step.data)
+			element.select_drop_down(step.data)
 
 	def do(self, steps):
 		if not isinstance(steps, list):

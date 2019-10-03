@@ -33,30 +33,32 @@ class TestOtherPages(unittest.TestCase):
 			("xpath", "(//button[@class='btn_primary btn_inventory'])[1]", "inv_btn1"),
 			("xpath", "(//button[@class='btn_primary btn_inventory'])[2]", "inv_btn2"),
 			("xpath", "(//button[@class='btn_primary btn_inventory'])[3]", "inv_btn3"),
+			("class", "shopping_cart_badge", "Cart Badge"),
+			("class", "shopping_cart_link", "Cart Link"),
+			("class", "cart_button", "Cart Button"),
+			("class", "checkout_button", "Checkout Button"),
+			("id", "first-name", "First Name"),
+			("id", "last-name", "Last Name"),
+			("id", "postal-code", "Zip"),
+			("class", "complete-header", "Completion Header")
 		])
+
 		steps = [
 			step.Step("click", bp.element("inv_btn1")),
 			step.Step("click", bp.element("inv_btn2")),
 			step.Step("click", bp.element("inv_btn3"))
 		]
 		bp.do(steps)
-
-		items_in_cart = bp.element_by("class", "shopping_cart_badge").get("innerHTML")
+		items_in_cart = bp.element("Cart Badge").get("innerHTML")
 		self.assertEqual(items_in_cart, "3")
 
-		bp.element_by("class", "shopping_cart_link").click()
-		bp.element_by("class", "cart_button").click()
-		items_in_cart = bp.element_by("class", "shopping_cart_badge").get("innerHTML")
+		bp.element("Cart Link").click()
+		bp.element("Cart Button").click()
+		items_in_cart = bp.element("Cart Badge").get("innerHTML")
 		self.assertEqual(items_in_cart, "2")
 
-		bp.element_by("class", "checkout_button").click()
+		bp.element("Checkout Button").click()
 
-		bp.collect_elements([
-			("id", "first-name", "First Name"),
-			("id", "last-name", "Last Name"),
-			("id", "postal-code", "Zip"),
-			("class", "cart_button", "Cart Button")
-		])
 		steps = [
 			step.Step("type", bp.element("First Name"), "Jane"),
 			step.Step("type", bp.element("Last Name"), "Doe"),
@@ -65,8 +67,8 @@ class TestOtherPages(unittest.TestCase):
 		]
 		bp.do(steps)
 
-		bp.element_by("class", "cart_button").click()
-		checkout_complete_page = bp.element_by("class", "complete-header").get("innerHTML")
+		bp.element("Cart Button").click()
+		checkout_complete_page = bp.element("Completion Header").get("innerHTML")
 		self.assertEqual(checkout_complete_page, "THANK YOU FOR YOUR ORDER")
 
 		bp.close()
