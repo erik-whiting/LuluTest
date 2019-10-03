@@ -9,7 +9,7 @@ to getting ready to start coding. There are a few things you need first:
   * Currently the supported version is Python 3.6
 * virtualenv (recommended)
   * Just run `pip install virtualenv`
-  
+
 ### Step 1 - Clone the Repository
 Navigate to a folder/directory where you'd like to install the project and run
 
@@ -79,3 +79,21 @@ Once you've committed everything, run:
 
 Then, head over to the [repository on Github](https://github.com/erik-whiting/LuluTest)
 and create your pull request **against the development branch**. That's it!
+
+***
+
+### Setting up selenium webdriver
+To be able to run the selenium tests in this project, you will have to install a selenium webdriver. Otherwise you'll get an error similar to this:
+
+`WebDriverException: Message: 'chromedriver' executable needs to be available in the path.`
+
+Firstly, download your preferred browser driver. In this instance, we'll download the selenium chromedriver from https://sites.google.com/a/chromium.org/chromedriver/downloads
+
+
+Once you've downloaded the chromedriver, add it to your system path. Put it in the same directory where you have your python script:
+
+`DRIVER_PATH = r'path\to\chromedriver.exe'`
+
+`driver = webdriver.Chrome(executable_path=DRIVER_PATH)`
+
+_If you're instrested in browsers other than chrome, please look at the selenium documentation:_ https://www.seleniumhq.org/download/
