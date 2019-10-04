@@ -26,6 +26,7 @@ class TestFeature(unittest.TestCase):
 		bp.go()
 		source = bp.page_source()
 		self.assertIn('<body onload="defaultBreaking()">', source)
+		bp.close()
 
 	def test_page_url(self):
 		self.cf.options_list = ["headless"]
@@ -35,6 +36,7 @@ class TestFeature(unittest.TestCase):
 		if current_url[current_url.__len__()-1] == "/":
 			current_url = current_url[:-1]
 		self.assertEqual(self.cf.url(), current_url)
+		bp.close()
 
 	def test_page_refresh(self):
 		self.cf.options_list = ["headless"]
@@ -46,6 +48,7 @@ class TestFeature(unittest.TestCase):
 		if current_url[current_url.__len__()-1] == "/":
 			current_url = current_url[:-1]
 		self.assertEqual(self.cf.url(), current_url)
+		bp.close()
 
 	def test_page_change_url(self):
 		self.cf.options_list = ["headless"]
@@ -62,6 +65,7 @@ class TestFeature(unittest.TestCase):
 		if current_url[current_url.__len__()-1] == "/":
 			current_url = current_url[:-1]
 		self.assertEqual('https://github.com', current_url)
+		bp.close()
 
 	def test_do_step(self):
 		self.cf.options_list.append("headless")
@@ -73,6 +77,7 @@ class TestFeature(unittest.TestCase):
 		bp.do_step("click", transmit_button)
 		english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
 		self.assertTrue(english_div)
+		bp.close()
 
 	def test_do(self):
 		self.cf.options_list.append("headless")
@@ -87,6 +92,7 @@ class TestFeature(unittest.TestCase):
 		bp.do(steps)
 		english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
 		self.assertTrue(english_div)
+		bp.close()
 
 	def test_element_collection_and_steps(self):
 		self.cf.options_list.append("headless")
@@ -103,6 +109,7 @@ class TestFeature(unittest.TestCase):
 		bp.do(steps)
 		english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
 		self.assertTrue(english_div)
+		bp.close()
 
 	def test_named_elements(self):
 		self.cf.options_list.append("headless")
@@ -119,4 +126,4 @@ class TestFeature(unittest.TestCase):
 		bp.do(steps)
 		english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
 		self.assertTrue(english_div)
-
+		bp.close()

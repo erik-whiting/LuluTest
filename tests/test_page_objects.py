@@ -38,6 +38,7 @@ class TestBasePage(unittest.TestCase):
 		bp.collect_elements([elem])
 		element = bp.element(0)
 		self.assertTrue(isinstance(element, base_element.BaseElement))
+		bp.close()
 
 	def test_named_elements(self):
 		cf = config.Config()
@@ -51,3 +52,4 @@ class TestBasePage(unittest.TestCase):
 		bp.collect_elements([elem])
 		element = bp.element("name")
 		self.assertTrue(isinstance(element, base_element.BaseElement))
+		bp.close()
