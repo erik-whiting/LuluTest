@@ -164,11 +164,11 @@ class TestOtherPages(unittest.TestCase):
             2) At least half of the element is visible after scrolling
                a distance greater than its height + initial top offset
         """
-        cf = config.Config()
+        cf = Config()
         cf.http_prefix = 'https://'
         cf.base_url = 'the-internet.herokuapp.com/floating_menu'
         cf.options_list.append("headless")
-        bp = page.Page(cf)
+        bp = Page(cf)
         bp.go()
 
         menu = bp.element_by("id", "menu")
