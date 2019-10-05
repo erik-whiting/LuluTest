@@ -3,7 +3,7 @@ import unittest
 from configs.config import Config
 from page.page import Page
 from page.step import Step
-from .helpers import evaluate_element_text
+from tests import helpers as helper
 
 
 class TestFeature(unittest.TestCase):
@@ -18,7 +18,7 @@ class TestFeature(unittest.TestCase):
         bp.go()
         bp.element_by("id", "sourceNews").input_text("Hello")
         bp.element_by("id", "transmitter").click()
-        english_div = evaluate_element_text(bp.element_by("id", "en1"), "Hello")
+        english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
         self.assertTrue(english_div)
         bp.close()
 
@@ -77,7 +77,7 @@ class TestFeature(unittest.TestCase):
         transmit_button = bp.element_by("id", "transmitter")
         bp.do_step("type", input_element, "Hello")
         bp.do_step("click", transmit_button)
-        english_div = evaluate_element_text(bp.element_by("id", "en1"), "Hello")
+        english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
         self.assertTrue(english_div)
         bp.close()
 
@@ -92,7 +92,7 @@ class TestFeature(unittest.TestCase):
             Step("click", transmit_button)
         ]
         bp.do(steps)
-        english_div = evaluate_element_text(bp.element_by("id", "en1"), "Hello")
+        english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
         self.assertTrue(english_div)
         bp.close()
 
@@ -109,7 +109,7 @@ class TestFeature(unittest.TestCase):
             Step("click", bp.elements[1])
         ]
         bp.do(steps)
-        english_div = evaluate_element_text(bp.element_by("id", "en1"), "Hello")
+        english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
         self.assertTrue(english_div)
         bp.close()
 
@@ -126,6 +126,6 @@ class TestFeature(unittest.TestCase):
             Step("click", bp.element("button"))
         ]
         bp.do(steps)
-        english_div = evaluate_element_text(bp.element_by("id", "en1"), "Hello")
+        english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
         self.assertTrue(english_div)
         bp.close()
