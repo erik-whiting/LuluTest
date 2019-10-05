@@ -1,4 +1,5 @@
 import unittest
+import time
 
 from configs.config import Config
 from page.page import Page
@@ -151,5 +152,37 @@ class TestOtherPages(unittest.TestCase):
 
         result = bp.element_by("id", "result").get("innerHTML")
         self.assertEqual(result, "You entered: This is a test")
+
+        bp.close()
+
+    def test_floating_menu(self):
+        """
+        Checks if a menu floats when scrolling the page
+
+        Considerations taken to asserts it floats:
+            1) The element moves when scrolling
+            2) At least half of the element is visible after scrolling
+               a distance greater than its height + initial top offset
+        """
+        cf = config.Config()
+        cf.http_prefix = 'https://'
+        cf.base_url = 'the-internet.herokuapp.com/floating_menu'
+        cf.options_list.append("headless")
+        bp = page.Page(cf)
+        bp.go()
+
+        menu = bp.element_by("id", "menu")
+        height = int(menu.get('offsetHeight'))
+        initial_top_offset = menu.element.rect.get('y')
+
+        scroll_distance = 300
+        bp.page.execute_script('window.scrollTo(0, {});'.format(scroll_distance))
+        time.sleep(1)
+
+        final_top_offset = menu.element.rect.get('y')
+
+        self.assertGreater(final_top_offset, initial_top_offset)
+        self.assertGreater(scroll_distance, height + initial_top_offset)
+        self.assertGreater(final_top_offset + height/2, scroll_distance)
 
         bp.close()
