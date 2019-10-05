@@ -1,6 +1,6 @@
 import unittest
 
-from configs import config
+from configs.config import Config
 
 
 class TestConfigs(unittest.TestCase):
@@ -9,28 +9,28 @@ class TestConfigs(unittest.TestCase):
     test_port = '5000'
 
     def test_config_returns_basic_url(self):
-        cf = config.Config()
+        cf = Config()
         cf.base_url = self.test_url
         cf.subdomain = ''
         cf.port = ''
         self.assertEqual(cf.url(), 'http://' + self.test_url)
 
     def test_config_returns_url_with_subdomain(self):
-        cf = config.Config()
+        cf = Config()
         cf.base_url = self.test_url
         cf.subdomain = self.test_sub_domain
         cf.port = ''
         self.assertEqual(cf.url(), 'http://' + self.test_sub_domain + '.' + self.test_url)
 
     def test_config_returns_url_with_port_only(self):
-        cf = config.Config()
+        cf = Config()
         cf.base_url = self.test_url
         cf.subdomain = ''
         cf.port = self.test_port
         self.assertEqual(cf.url(), 'http://' + self.test_url + ':' + self.test_port)
 
     def test_config_returns_url_with_port_and_subdomain(self):
-        cf = config.Config()
+        cf = Config()
         cf.base_url = self.test_url
         cf.subdomain = self.test_sub_domain
         cf.port = self.test_port

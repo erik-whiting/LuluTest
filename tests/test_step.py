@@ -1,15 +1,16 @@
 import unittest
 
-from configs import config
-from page import page, step
+from configs.config import Config
+from page.page import Page
+from page.step import Step
 
 
 class TestStep(unittest.TestCase):
-    cf = config.Config()
+    cf = Config()
     cf.http_prefix = 'https://'
     cf.base_url = 'google.com'
     cf.options_list.append("headless")
-    step = step.Step("Type", "in this element", "these words")
+    step = Step("Type", "in this element", "these words")
 
     def test_step_creation(self):
         self.assertEqual(self.step.action, "Type")
@@ -17,10 +18,10 @@ class TestStep(unittest.TestCase):
         self.assertEqual(self.step.data, "these words")
 
     def test_step_explain(self):
-        bp = page.Page(self.cf)
+        bp = Page(self.cf)
         bp.go()
         element = bp.element_by("name", "q")
-        step_1 = step.Step("type", element, "This data")
+        step_1 = Step("type", element, "This data")
         answer = step_1.explain()
         self.assertEqual(answer, "This step type This data into a input element of name q")
         bp.close()
