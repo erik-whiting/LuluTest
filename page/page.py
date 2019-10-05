@@ -109,8 +109,25 @@ class Page(PageBuilder):
         if isinstance(step.element, BaseElement):
             element = step.element
         else:
-            element = self.element_by(step.element[0], step.element[1])
+            element = self.resolve_step_element(step.element)
 
+        self.element_action(element, step)
+
+    def resolve_step_element(self, step_element) -> BaseElement:
+        if len(step_element) == 2:
+            element = self.element_by(
+                step_element[0], step_element[1]
+            )
+        elif len(step_element):
+            element = self.element_by(
+                step_element[0], step_element[1], step_element[2]
+            )
+        else:
+            element = NotImplementedError
+        return element
+
+    @staticmethod
+    def element_action(element, step):
         action = step.action.lower()
         if action == "click":
             element.click()

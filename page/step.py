@@ -9,6 +9,7 @@ class Step:
         if isinstance(type(self.element), str):
             self.tag_name = ''
         else:
+            self.element.activate_element()
             self.tag_name = self.element.element.tag_name
 
     def explain(self):

@@ -1,17 +1,18 @@
 import unittest
 
-from configs import config
-from page import page, step
+from configs.config import Config
+from page.page import Page
+from page.step import Step
 
 
 class TestOtherPages(unittest.TestCase):
     def test_calculator_page(self):
-        cf = config.Config()
+        cf = Config()
         cf.http_prefix = 'http://'
         cf.base_url = 'www.math.com/'
         cf.base_url += 'students/calculators/source/basic.htm'
         cf.options_list.append("headless")
-        bp = page.Page(cf)
+        bp = Page(cf)
         bp.go()
         bp.element_by("name", "five").click()
         bp.element_by("name", "plus").click()
@@ -22,12 +23,12 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_saucedemo_page(self):
-        cf = config.Config()
+        cf = Config()
         cf.http_prefix = 'https://'
         cf.base_url = 'www.saucedemo.com/'
         cf.base_url += 'inventory.html'
         cf.options_list.append("headless")
-        bp = page.Page(cf)
+        bp = Page(cf)
         bp.go()
 
         bp.collect_elements([
@@ -45,9 +46,9 @@ class TestOtherPages(unittest.TestCase):
         ])
 
         steps = [
-            step.Step("click", bp.element("inv_btn1")),
-            step.Step("click", bp.element("inv_btn2")),
-            step.Step("click", bp.element("inv_btn3"))
+            Step("click", bp.element("inv_btn1")),
+            Step("click", bp.element("inv_btn2")),
+            Step("click", bp.element("inv_btn3"))
         ]
         bp.do(steps)
         items_in_cart = bp.element("Cart Badge").get("innerHTML")
@@ -61,10 +62,10 @@ class TestOtherPages(unittest.TestCase):
         bp.element("Checkout Button").click()
 
         steps = [
-            step.Step("type", bp.element("First Name"), "Jane"),
-            step.Step("type", bp.element("Last Name"), "Doe"),
-            step.Step("type", bp.element("Zip"), "12345"),
-            step.Step("click", bp.element("Cart Button"))
+            Step("type", bp.element("First Name"), "Jane"),
+            Step("type", bp.element("Last Name"), "Doe"),
+            Step("type", bp.element("Zip"), "12345"),
+            Step("click", bp.element("Cart Button"))
         ]
         bp.do(steps)
 
@@ -75,12 +76,12 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_saucedemo_refresh_page(self):
-        cf = config.Config()
+        cf = Config()
         cf.http_prefix = 'https://'
         cf.base_url = 'www.saucedemo.com/'
         cf.base_url += 'inventory.html'
         cf.options_list.append("headless")
-        bp = page.Page(cf)
+        bp = Page(cf)
         bp.go()
 
         bp.element_by("xpath", "(//button[@class='btn_primary btn_inventory'])[1]").click()
@@ -101,11 +102,11 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_javascript_alert(self):
-        cf = config.Config()
+        cf = Config()
         cf.http_prefix = 'https://'
         cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
         cf.options_list.append("headless")
-        bp = page.Page(cf)
+        bp = Page(cf)
         bp.go()
 
         bp.element_by("xpath", "(//button)[1]").click()
@@ -117,11 +118,11 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_javascript_confirm(self):
-        cf = config.Config()
+        cf = Config()
         cf.http_prefix = 'https://'
         cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
         cf.options_list.append("headless")
-        bp = page.Page(cf)
+        bp = Page(cf)
         bp.go()
 
         bp.element_by("xpath", "(//button)[2]").click()
@@ -133,11 +134,11 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_javascript_prompt(self):
-        cf = config.Config()
+        cf = Config()
         cf.http_prefix = 'https://'
         cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
         cf.options_list.append("headless")
-        bp = page.Page(cf)
+        bp = Page(cf)
         bp.go()
 
         bp.element_by("xpath", "(//button)[3]").click()
