@@ -24,7 +24,8 @@ class BaseElement:
         self.active_element = False
 
     def web_element(self):
-        return WebDriverWait(self.driver, 10).until(ec.visibility_of_element_located(locator=self.locator))
+        return WebDriverWait(self.driver, 10)\
+            .until(ec.visibility_of_element_located(locator=self.locator))
 
     def click(self):
         self.activate_element()

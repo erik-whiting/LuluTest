@@ -22,7 +22,8 @@ class PageBuilder:
 
     def web_driver(self):
         if self.driver == 'Chrome':
-            chrome_options = self.resolve_options(webdriver.chrome.options.Options())
+            chrome_options = self\
+                .resolve_options(webdriver.chrome.options.Options())
             return webdriver.Chrome(options=chrome_options)
         elif self.driver == 'Safari':
             return webdriver.Safari()
@@ -58,7 +59,7 @@ class Page(PageBuilder):
 
     def element_by(self, indicator, locator, name=''):
         indicator = indicator.lower()
-        indicator_converter = {
+        converter = {
             "id": By.ID,
             "xpath": By.XPATH,
             "selector": By.CSS_SELECTOR,
@@ -68,7 +69,7 @@ class Page(PageBuilder):
             "partial link": By.PARTIAL_LINK_TEXT,
             "tag": By.TAG_NAME
         }
-        return BaseElement(indicator_converter.get(indicator), locator, self.page, name)
+        return BaseElement(converter.get(indicator), locator, self.page, name)
 
     def element(self, name) -> BaseElement:
         if isinstance(name, str):
@@ -84,7 +85,9 @@ class Page(PageBuilder):
 
     def collect_named_element(self, collection_instruction: Tuple[str, str, str]):
         self.elements.append(
-            (collection_instruction[0], collection_instruction[1], collection_instruction[2])
+            (collection_instruction[0],
+             collection_instruction[1],
+             collection_instruction[2])
         )
 
     def collect_elements(self, collection_instructions: List[Any]):
