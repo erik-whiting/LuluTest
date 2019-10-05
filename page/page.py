@@ -115,9 +115,13 @@ class Page(PageBuilder):
 
     def resolve_step_element(self, step_element) -> BaseElement:
         if len(step_element) == 2:
-            element = self.element_by(step_element[0], step_element[1])
+            element = self.element_by(
+                step_element[0], step_element[1]
+            )
         elif len(step_element):
-            element = self.element_by(step_element[0], step_element[1], step_element[2])
+            element = self.element_by(
+                step_element[0], step_element[1], step_element[2]
+            )
         else:
             element = NotImplementedError
         return element
