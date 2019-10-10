@@ -2,7 +2,7 @@ import unittest
 
 from configs.config import Config
 from page.page import Page
-from page.base_element import BaseElement
+from page.page_element import PageElement
 
 
 class TestBasePage(unittest.TestCase):
@@ -39,7 +39,7 @@ class TestBasePage(unittest.TestCase):
         elem = ("id", "transmitter")
         bp.collect_elements([elem])
         element = bp.element(0)
-        self.assertTrue(isinstance(element, BaseElement))
+        self.assertTrue(isinstance(element, PageElement))
         bp.close()
 
     def test_named_elements(self):
@@ -53,5 +53,5 @@ class TestBasePage(unittest.TestCase):
         elem = ("id", "transmitter", "name")
         bp.collect_elements([elem])
         element = bp.element("name")
-        self.assertTrue(isinstance(element, BaseElement))
+        self.assertTrue(isinstance(element, PageElement))
         bp.close()

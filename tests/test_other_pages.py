@@ -147,7 +147,7 @@ class TestOtherPages(unittest.TestCase):
 
         self.assertEqual(alert.text, "I am a JS prompt")
 
-        alert.send_keys("This is a test")
+        alert.input_text("This is a test")
         alert.accept()
 
         result = bp.element_by("id", "result").get("innerHTML")
