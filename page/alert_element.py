@@ -8,7 +8,7 @@ class AlertElement(BaseElement):
         super().__init__(driver)
 
     def web_element(self):
-        return BaseElement.web_element(ec.alert_is_present())
+        return super().web_element(ec.alert_is_present())
 
     def accept(self):
         self.activate_element()
