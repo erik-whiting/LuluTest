@@ -13,8 +13,8 @@ class PageElement(BaseElement):
         self.locator = (self.by, self.value)
 
     def web_element(self):
-        return super().web_element(ec
-                .visibility_of_element_located(locator=self.locator))
+        return super().web_element(
+                ec.visibility_of_element_located(locator=self.locator))
 
     def select_drop_down(self, index):
         self.activate_element()
