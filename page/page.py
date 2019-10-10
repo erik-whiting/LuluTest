@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 from page.alert_element import AlertElement
-from page.base_element import BaseElement
+from page.page_element import PageElement
 from page.step import Step
 
 
@@ -69,9 +69,9 @@ class Page(PageBuilder):
             "partial link": By.PARTIAL_LINK_TEXT,
             "tag": By.TAG_NAME
         }
-        return BaseElement(converter.get(indicator), locator, self.page, name)
+        return PageElement(converter.get(indicator), locator, self.page, name)
 
-    def element(self, name) -> BaseElement:
+    def element(self, name) -> PageElement:
         if isinstance(name, str):
             elem = [elem for elem in self.elements if elem[2] == name][0]
         else:
@@ -109,14 +109,14 @@ class Page(PageBuilder):
         else:
             step = args[0]
 
-        if isinstance(step.element, BaseElement):
+        if isinstance(step.element, PageElement):
             element = step.element
         else:
             element = self.resolve_step_element(step.element)
 
         self.element_action(element, step)
 
-    def resolve_step_element(self, step_element) -> BaseElement:
+    def resolve_step_element(self, step_element) -> PageElement:
         if len(step_element) == 2:
             element = self.element_by(
                 step_element[0], step_element[1]
