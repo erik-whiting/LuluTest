@@ -54,4 +54,5 @@ class TestBasePage(unittest.TestCase):
         bp.collect_elements([elem])
         element = bp.element("name")
         self.assertTrue(isinstance(element, PageElement))
+        self.assertEqual(element.text, "Transmit!")
         bp.close()
