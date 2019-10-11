@@ -186,3 +186,29 @@ class TestOtherPages(unittest.TestCase):
         self.assertGreater(final_top_offset + height/2, scroll_distance)
 
         bp.close()
+
+    def test_autocompletion(self):
+        def get_number_suggestions():
+            suggestions = bp.element_by('id', 'ui-id-1')
+            suggestions.activate_element()
+            suggestions_list = suggestions.element.find_elements_by_tag_name('li')        
+            return len(suggestions_list)
+             
+        cf = Config()
+        cf.http_prefix = 'https://'
+        cf.base_url = 'demoqa.com/autocomplete/'
+        cf.options_list.append("headless")
+        bp = Page(cf)
+        bp.go()
+ 
+        sug_number = []
+        textbox = bp.element_by('id', 'tags')
+        textbox.input_text('a')
+        sug_number.append(get_number_suggestions())
+        textbox.input_text('s')  # needs time to repopulate list
+        time.sleep(0.5)
+        sug_number.append(get_number_suggestions())
+ 
+        self.assertEqual(sug_number, [10, 4])
+         
+        bp.close()
