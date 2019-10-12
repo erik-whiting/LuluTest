@@ -4,8 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-from page.alert_element import AlertElement
-from page.page_element import PageElement
+from element.alert_element import AlertElement
+from element.page_element import PageElement
 from page.step import Step
 
 

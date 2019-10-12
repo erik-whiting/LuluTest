@@ -1,5 +1,5 @@
 from selenium.webdriver.support import expected_conditions as ec
-from page.base_element import BaseElement
+from element.base_element import BaseElement
 
 
 class AlertElement(BaseElement):

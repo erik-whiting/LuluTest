@@ -2,7 +2,7 @@ import unittest
 
 from configs.config import Config
 from page.page import Page
-from page.page_element import PageElement
+from element.page_element import PageElement
 
 
 class TestBasePage(unittest.TestCase):
