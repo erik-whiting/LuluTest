@@ -16,6 +16,10 @@ class Step:
         self.tag_name_setter()
         return str(
             "This step {0} {1} into a {2} element of {3} {4}".format(
-                self.action, self.data, self.tag_name, self.element.by, self.element.value
+                self.action,
+                self.data,
+                self.tag_name,
+                self.element.by,
+                self.element.value
             )
         )

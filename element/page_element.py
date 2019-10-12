@@ -1,7 +1,5 @@
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.support.wait import WebDriverWait
-from page.base_element import BaseElement
+from element.base_element import BaseElement
 
 
 class PageElement(BaseElement):
