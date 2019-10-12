@@ -2,7 +2,7 @@ import unittest
 
 from configs.config import Config
 from page.page import Page
-from page.step import Step
+from step.step import Step
 from tests import helpers as helper
 
 

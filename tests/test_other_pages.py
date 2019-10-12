@@ -3,7 +3,7 @@ import time
 
 from configs.config import Config
 from page.page import Page
-from page.step import Step
+from step.step import Step
 
 
 class TestOtherPages(unittest.TestCase):
