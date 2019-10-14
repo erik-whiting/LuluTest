@@ -3,6 +3,7 @@ from typing import List, Tuple, Any
 from selenium.webdriver.common.by import By
 
 from page.page_builder import PageBuilder
+from element.base_element import BaseElement
 from element.alert_element import AlertElement
 from element.page_element import PageElement
 from step.step import Step
@@ -30,26 +31,18 @@ class Page(PageBuilder):
     def navigate_to(self, url):
         self.page.get(url)
 
-    def element_by(self, indicator, locator, name=''):
-        indicator = indicator.lower()
-        converter = {
-            "id": By.ID,
-            "xpath": By.XPATH,
-            "selector": By.CSS_SELECTOR,
-            "class": By.CLASS_NAME,
-            "link text": By.LINK_TEXT,
-            "name": By.NAME,
-            "partial link": By.PARTIAL_LINK_TEXT,
-            "tag": By.TAG_NAME
-        }
-        return PageElement(converter.get(indicator), locator, self.page, name)
-
-    def element(self, name) -> PageElement:
+    def element(self, name) -> BaseElement:
         if isinstance(name, str):
             elem = [elem for elem in self.elements if elem[2] == name][0]
         else:
             elem = self.elements[name]
-        return self.element_by(elem[0], elem[1])
+        return self.element_tools.get_page_element(self.page, elem[0], elem[1])
+
+    def grab(self, by, locator):
+        # For grabbing one element on page
+        # Use element collection when multiple
+        # elements are to be used.
+        return self.element_tools.get_page_element(self.page, by, locator)
 
     def collect_anonymous_element(self, collection_instruction: Tuple[str, str]):
         self.elements.append(
@@ -91,12 +84,12 @@ class Page(PageBuilder):
 
     def resolve_step_element(self, step_element) -> PageElement:
         if len(step_element) == 2:
-            element = self.element_by(
-                step_element[0], step_element[1]
+            element = self.element_tools.get_page_element(
+                self.page, step_element[0], step_element[1]
             )
         elif len(step_element):
-            element = self.element_by(
-                step_element[0], step_element[1], step_element[2]
+            element = self.element_tools.get_page_element(
+                self.page, step_element[0], step_element[1], step_element[2]
             )
         else:
             element = NotImplementedError
