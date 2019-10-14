@@ -7,22 +7,6 @@ from step.step import Step
 
 
 class TestOtherPages(unittest.TestCase):
-    def test_calculator_page(self):
-        cf = Config()
-        cf.http_prefix = 'http://'
-        cf.base_url = 'www.math.com/'
-        cf.base_url += 'students/calculators/source/basic.htm'
-        cf.options_list.append("headless")
-        bp = Page(cf)
-        bp.go()
-        bp.element_by("name", "five").click()
-        bp.element_by("name", "plus").click()
-        bp.element_by("name", "seven").click()
-        bp.element_by("name", "DoIt").click()
-        answer = bp.element_by("name", "Input").get("value")
-        self.assertEqual(answer, "12")
-        bp.close()
-
     def test_saucedemo_page(self):
         cf = Config()
         cf.http_prefix = 'https://'
@@ -85,19 +69,26 @@ class TestOtherPages(unittest.TestCase):
         bp = Page(cf)
         bp.go()
 
-        bp.element_by("xpath", "(//button[@class='btn_primary btn_inventory'])[1]").click()
-        item_name = bp.element_by("xpath", "(//div[@class='inventory_item_name'])[1]").get("innerHTML")
-        items_in_cart = bp.element_by("class", "shopping_cart_badge").get("innerHTML")
-        self.assertEqual(items_in_cart, "1")
+        bp.collect_elements([
+            ("xpath", "(//button[@class='btn_primary btn_inventory'])[1]", "button 1"),
+            ("xpath", "(//div[@class='inventory_item_name'])[1]", "inventory item"),
+            ("class", "shopping_cart_badge", "shopping cart badge"),
+            ("class", "inventory_item_name", "item name")
+        ])
 
+        bp.element("button 1").click()
+        item_name = bp.element("inventory item").get("innerHTML")
+        items_in_cart = bp.element("shopping cart badge").get("innerHTML")
+
+        self.assertEqual(items_in_cart, "1")
         bp.go()
 
-        items_in_cart = bp.element_by("class", "shopping_cart_badge").get("innerHTML")
+        items_in_cart = bp.element("shopping cart badge").get("innerHTML")
         self.assertEqual(items_in_cart, "1")
 
         bp.navigate_to('https://www.saucedemo.com/cart.html')
 
-        inventory_item_name = bp.element_by("class", "inventory_item_name").get("innerHTML")
+        inventory_item_name = bp.element("item name").get("innerHTML")
         self.assertEqual(item_name, inventory_item_name)
 
         bp.close()
@@ -110,7 +101,7 @@ class TestOtherPages(unittest.TestCase):
         bp = Page(cf)
         bp.go()
 
-        bp.element_by("xpath", "(//button)[1]").click()
+        bp.grab("xpath", "(//button)[1]").click()
         alert = bp.get_alert()
 
         self.assertEqual(alert.text, "I am a JS Alert")
@@ -126,7 +117,7 @@ class TestOtherPages(unittest.TestCase):
         bp = Page(cf)
         bp.go()
 
-        bp.element_by("xpath", "(//button)[2]").click()
+        bp.grab("xpath", "(//button)[2]").click()
         alert = bp.get_alert()
 
         self.assertEqual(alert.text, "I am a JS Confirm")
@@ -142,7 +133,7 @@ class TestOtherPages(unittest.TestCase):
         bp = Page(cf)
         bp.go()
 
-        bp.element_by("xpath", "(//button)[3]").click()
+        bp.grab("xpath", "(//button)[3]").click()
         alert = bp.get_alert()
 
         self.assertEqual(alert.text, "I am a JS prompt")
@@ -150,7 +141,7 @@ class TestOtherPages(unittest.TestCase):
         alert.input_text("This is a test")
         alert.accept()
 
-        result = bp.element_by("id", "result").get("innerHTML")
+        result = bp.grab("id", "result").get("innerHTML")
         self.assertEqual(result, "You entered: This is a test")
 
         bp.close()
@@ -171,7 +162,7 @@ class TestOtherPages(unittest.TestCase):
         bp = Page(cf)
         bp.go()
 
-        menu = bp.element_by("id", "menu")
+        menu = bp.grab("id", "menu")
         height = int(menu.get('offsetHeight'))
         initial_top_offset = menu.element.rect.get('y')
 
@@ -189,7 +180,7 @@ class TestOtherPages(unittest.TestCase):
 
     def test_autocompletion(self):
         def get_number_suggestions():
-            suggestions = bp.element_by('id', 'ui-id-1')
+            suggestions = bp.grab('id', 'ui-id-1')
             suggestions.activate_element()
             suggestions_list = suggestions.element.find_elements_by_tag_name('li')        
             return len(suggestions_list)
@@ -202,7 +193,7 @@ class TestOtherPages(unittest.TestCase):
         bp.go()
  
         sug_number = []
-        textbox = bp.element_by('id', 'tags')
+        textbox = bp.grab('id', 'tags')
         textbox.input_text('a')
         sug_number.append(get_number_suggestions())
         textbox.input_text('s')  # needs time to repopulate list
