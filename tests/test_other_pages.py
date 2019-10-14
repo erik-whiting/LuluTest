@@ -105,8 +105,6 @@ class TestOtherPages(unittest.TestCase):
         alert = bp.get_alert()
 
         self.assertEqual(alert.text, "I am a JS Alert")
-
-        alert.accept()
         bp.close()
 
     def test_javascript_confirm(self):
@@ -121,8 +119,6 @@ class TestOtherPages(unittest.TestCase):
         alert = bp.get_alert()
 
         self.assertEqual(alert.text, "I am a JS Confirm")
-
-        alert.dismiss()
         bp.close()
 
     def test_javascript_prompt(self):
