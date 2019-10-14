@@ -3,6 +3,7 @@ from typing import List, Tuple, Any
 from selenium.webdriver.common.by import By
 
 from page.page_builder import PageBuilder
+from element.base_element import BaseElement
 from element.alert_element import AlertElement
 from element.page_element import PageElement
 from step.step import Step
@@ -30,26 +31,26 @@ class Page(PageBuilder):
     def navigate_to(self, url):
         self.page.get(url)
 
-    def element_by(self, indicator, locator, name=''):
-        indicator = indicator.lower()
-        converter = {
-            "id": By.ID,
-            "xpath": By.XPATH,
-            "selector": By.CSS_SELECTOR,
-            "class": By.CLASS_NAME,
-            "link text": By.LINK_TEXT,
-            "name": By.NAME,
-            "partial link": By.PARTIAL_LINK_TEXT,
-            "tag": By.TAG_NAME
-        }
-        return PageElement(converter.get(indicator), locator, self.page, name)
-
-    def element(self, name) -> PageElement:
+    def element(self, name) -> BaseElement:
         if isinstance(name, str):
             elem = [elem for elem in self.elements if elem[2] == name][0]
         else:
             elem = self.elements[name]
-        return self.element_by(elem[0], elem[1])
+        return self.element_tools.get_page_element(self.page, elem[0], elem[1])
+
+    def grab(self, by, locator):
+        # For grabbing one element on page
+        # Use element collection when multiple
+        # elements are to be used.
+        return self.element_tools.get_page_element(self.page, by, locator)
+
+    # Factory method
+    def collect_elements(self, collection_instructions: List[Any]):
+        for collection_instruction in collection_instructions:
+            if len(collection_instruction) == 2:
+                self.collect_anonymous_element(collection_instruction)
+            elif len(collection_instruction) == 3:
+                self.collect_named_element(collection_instruction)
 
     def collect_anonymous_element(self, collection_instruction: Tuple[str, str]):
         self.elements.append(
@@ -62,13 +63,6 @@ class Page(PageBuilder):
              collection_instruction[1],
              collection_instruction[2])
         )
-
-    def collect_elements(self, collection_instructions: List[Any]):
-        for collection_instruction in collection_instructions:
-            if len(collection_instruction) == 2:
-                self.collect_anonymous_element(collection_instruction)
-            elif len(collection_instruction) == 3:
-                self.collect_named_element(collection_instruction)
 
     def get_alert(self):
         return AlertElement(self.page)
@@ -87,34 +81,20 @@ class Page(PageBuilder):
         else:
             element = self.resolve_step_element(step.element)
 
-        self.element_action(element, step)
+        self.element_tools.element_action(element, step)
 
     def resolve_step_element(self, step_element) -> PageElement:
         if len(step_element) == 2:
-            element = self.element_by(
-                step_element[0], step_element[1]
+            element = self.element_tools.get_page_element(
+                self.page, step_element[0], step_element[1]
             )
         elif len(step_element):
-            element = self.element_by(
-                step_element[0], step_element[1], step_element[2]
+            element = self.element_tools.get_page_element(
+                self.page, step_element[0], step_element[1], step_element[2]
             )
         else:
             element = NotImplementedError
         return element
-
-    @staticmethod
-    def element_action(element, step):
-        action = step.action.lower()
-        if action == "click":
-            element.click()
-        elif action == "type":
-            element.input_text(step.data)
-        elif action == "clear":
-            element.clear()
-        elif action == "clear text":
-            element.clear_text()
-        elif action == "select":
-            element.select_drop_down(step.data)
 
     def do(self, steps):
         if not isinstance(steps, list):

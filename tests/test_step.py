@@ -20,7 +20,7 @@ class TestStep(unittest.TestCase):
     def test_step_explain(self):
         bp = Page(self.cf)
         bp.go()
-        element = bp.element_by("name", "q")
+        element = bp.grab("name", "q")
         step_1 = Step("type", element, "This data")
         answer = step_1.explain()
         self.assertEqual(answer, "This step type This data into a input element of name q")
