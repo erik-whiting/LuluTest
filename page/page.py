@@ -44,6 +44,14 @@ class Page(PageBuilder):
         # elements are to be used.
         return self.element_tools.get_page_element(self.page, by, locator)
 
+    # Factory method
+    def collect_elements(self, collection_instructions: List[Any]):
+        for collection_instruction in collection_instructions:
+            if len(collection_instruction) == 2:
+                self.collect_anonymous_element(collection_instruction)
+            elif len(collection_instruction) == 3:
+                self.collect_named_element(collection_instruction)
+
     def collect_anonymous_element(self, collection_instruction: Tuple[str, str]):
         self.elements.append(
             (collection_instruction[0], collection_instruction[1])
@@ -55,13 +63,6 @@ class Page(PageBuilder):
              collection_instruction[1],
              collection_instruction[2])
         )
-
-    def collect_elements(self, collection_instructions: List[Any]):
-        for collection_instruction in collection_instructions:
-            if len(collection_instruction) == 2:
-                self.collect_anonymous_element(collection_instruction)
-            elif len(collection_instruction) == 3:
-                self.collect_named_element(collection_instruction)
 
     def get_alert(self):
         return AlertElement(self.page)
@@ -80,7 +81,7 @@ class Page(PageBuilder):
         else:
             element = self.resolve_step_element(step.element)
 
-        self.element_action(element, step)
+        self.element_tools.element_action(element, step)
 
     def resolve_step_element(self, step_element) -> PageElement:
         if len(step_element) == 2:
@@ -94,20 +95,6 @@ class Page(PageBuilder):
         else:
             element = NotImplementedError
         return element
-
-    @staticmethod
-    def element_action(element, step):
-        action = step.action.lower()
-        if action == "click":
-            element.click()
-        elif action == "type":
-            element.input_text(step.data)
-        elif action == "clear":
-            element.clear()
-        elif action == "clear text":
-            element.clear_text()
-        elif action == "select":
-            element.select_drop_down(step.data)
 
     def do(self, steps):
         if not isinstance(steps, list):
