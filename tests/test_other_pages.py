@@ -93,7 +93,6 @@ class TestOtherPages(unittest.TestCase):
 
         bp.close()
 
-    @unittest.skip("This seems to only fail in TravisCI, works locally")
     def test_javascript_alert(self):
         cf = Config()
         cf.http_prefix = 'https://'
@@ -106,9 +105,10 @@ class TestOtherPages(unittest.TestCase):
         alert = bp.get_alert()
 
         self.assertEqual(alert.text, "I am a JS Alert")
+        
+        alert.accept()
         bp.close()
 
-    @unittest.skip("This seems to only fail in TravisCI, works locally")
     def test_javascript_confirm(self):
         cf = Config()
         cf.http_prefix = 'https://'
@@ -121,9 +121,10 @@ class TestOtherPages(unittest.TestCase):
         alert = bp.get_alert()
 
         self.assertEqual(alert.text, "I am a JS Confirm")
+        
+        alert.dismiss()
         bp.close()
 
-    @unittest.skip("This seems to only fail in TravisCI, works locally")
     def test_javascript_prompt(self):
         cf = Config()
         cf.http_prefix = 'https://'
