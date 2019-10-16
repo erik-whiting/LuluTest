@@ -19,11 +19,10 @@ basic work flow for creating a test is as such:
   the driver is headless. You can also optinally set the subdomain and port
   numbers of the URL
 * Create a `Page` object with the `Config` object
-* In your tests, build `BaseElement` objects with the `Page` method `element_by`
-and then use the `BaseElement` methods to create your tests.
+* In your tests, you can either use the Page object to manipulate webpages, or use the step class
 
 ### Example Usage
-Below is an example taken from an early commit of this repository:
+Below is an example test case:
 
 ```python
 import unittest
@@ -37,26 +36,47 @@ class TestFeature(unittest.TestCase):
     cf.base_url = 'erikwhiting.com'
     cf.subdomain = ''
     cf.base_url += '/newsOutlet'
+    cf.options_list.append("headless")
+    bp = None
+    
+    @classmethod
+    def setUp(cls):
+        cls.bp = Page(cls.cf)
+        cls.bp.go()
+    
+    @classmethod
+    def tearDown(cls):
+        cls.bp.close()
 
+    # Same kind of test but with the do method
     def test_write_and_click_with_headless(self):
-        self.cf.options_list = ["headless"]
-        bp = page.Page(self.cf)
-        bp.go()
-        bp.element_by("id", "sourceNews").input_text("Hello")
-        bp.element_by("id", "transmitter").click()
-        english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
+        self.bp.collect_elements([
+            ("id", "sourceNews", "input box"),
+            ("id", "transmitter", "button"),
+            ("id", "en1", "english div")
+        ])
+        self.bp.element("input box").input_text("Hello")
+        self.bp.element("button").click()
+        english_div = helper.evaluate_element_text(self.bp.element("english div"), "Hello")
         self.assertTrue(english_div)
-        bp.close()
-
-    def test_write_and_click_without_headless(self):
-        self.cf.options_list = []
-        bp = page.Page(self.cf)
-        bp.go()
-        bp.element_by("id", "sourceNews").input_text("Hello")
-        bp.element_by("id", "transmitter").click()
-        english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
+    
+        def test_do(self):
+        self.bp.collect_elements([
+            ("id", "sourceNews"),
+            ("id", "transmitter")
+        ])
+        input_element = self.bp.elements[0]
+        transmit_button = self.bp.elements[1]
+        steps = [
+            Step("type", input_element, "Hello"),
+            Step("click", transmit_button)
+        ]
+        self.bp.do(steps)
+        english_div = helper.evaluate_element_text(
+            self.bp.grab("id", "en1"),
+            "Hello"
+        )
         self.assertTrue(english_div)
-        bp.close()
 
 ```
 
