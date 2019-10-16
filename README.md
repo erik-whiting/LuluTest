@@ -48,7 +48,6 @@ class TestFeature(unittest.TestCase):
     def tearDown(cls):
         cls.bp.close()
 
-    # Same kind of test but with the do method
     def test_write_and_click_with_headless(self):
         self.bp.collect_elements([
             ("id", "sourceNews", "input box"),
@@ -60,7 +59,8 @@ class TestFeature(unittest.TestCase):
         english_div = helper.evaluate_element_text(self.bp.element("english div"), "Hello")
         self.assertTrue(english_div)
     
-        def test_do(self):
+    # Same test as above but with the "do" method
+    def test_do(self):
         self.bp.collect_elements([
             ("id", "sourceNews"),
             ("id", "transmitter")
