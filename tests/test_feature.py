@@ -1,16 +1,13 @@
 import unittest
 
-from configs.config import Config
+from configs.page_configs import PageConfig
 from page.page import Page
 from step.step import Step
 from tests import helpers as helper
 
 
 class TestFeature(unittest.TestCase):
-    cf = Config()
-    cf.base_url = 'erikwhiting.com'
-    cf.subdomain = ''
-    cf.base_url += '/newsOutlet'
+    cf = PageConfig('erikwhiting.com/newsOutlet')
     cf.options_list.append("headless")
     bp = None
 

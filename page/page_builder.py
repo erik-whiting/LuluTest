@@ -5,16 +5,14 @@ from page.page_element_tools import ElementTools
 
 
 class PageBuilder:
-    def __init__(self, config, url_extension=''):
+    def __init__(self, config):
+        self.config = config
         self.driver = config.driver
         self.options_list = config.options_list
         self.page = self.web_driver()
         self.elements = []
         self.element_tools = ElementTools()
-        if not url_extension:
-            self.url = config.url()
-        else:
-            self.url = config.url() + '/' + url_extension
+        self.url = self.config.url()
 
     def web_driver(self):
         if self.driver == 'Chrome':

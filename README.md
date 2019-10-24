@@ -26,57 +26,29 @@ Below is an example test case:
 
 ```python
 import unittest
-from configs import config
-from page import page
+
+from configs.page_configs import PageConfig
+from page.page import Page
+from step.step import Step
 from tests import helpers as helper
 
 
 class TestFeature(unittest.TestCase):
-    cf = config.Config()
-    cf.base_url = 'erikwhiting.com'
-    cf.subdomain = ''
-    cf.base_url += '/newsOutlet'
-    cf.options_list.append("headless")
-    bp = None
-    
-    @classmethod
-    def setUp(cls):
-        cls.bp = Page(cls.cf)
-        cls.bp.go()
-    
-    @classmethod
-    def tearDown(cls):
-        cls.bp.close()
-
     def test_write_and_click_with_headless(self):
-        self.bp.collect_elements([
+        cf = PageConfig('erikwhiting.com/newsOutlet')
+        cf.options_list.append("headless")
+        bp = Page(cf)
+        bp.go()
+        bp.collect_elements([
             ("id", "sourceNews", "input box"),
             ("id", "transmitter", "button"),
             ("id", "en1", "english div")
         ])
-        self.bp.element("input box").input_text("Hello")
-        self.bp.element("button").click()
-        english_div = helper.evaluate_element_text(self.bp.element("english div"), "Hello")
+        bp.element("input box").input_text("Hello")
+        bp.element("button").click()
+        english_div = helper.evaluate_element_text(bp.element("english div"), "Hello")
         self.assertTrue(english_div)
-    
-    # Same test as above but with the "do" method
-    def test_do(self):
-        self.bp.collect_elements([
-            ("id", "sourceNews"),
-            ("id", "transmitter")
-        ])
-        input_element = self.bp.elements[0]
-        transmit_button = self.bp.elements[1]
-        steps = [
-            Step("type", input_element, "Hello"),
-            Step("click", transmit_button)
-        ]
-        self.bp.do(steps)
-        english_div = helper.evaluate_element_text(
-            self.bp.grab("id", "en1"),
-            "Hello"
-        )
-        self.assertTrue(english_div)
+        bp.close()
 
 ```
 
