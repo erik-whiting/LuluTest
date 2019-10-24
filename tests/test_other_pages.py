@@ -1,17 +1,14 @@
 import unittest
 import time
 
-from configs.config import Config
+from configs.page_configs import PageConfig
 from page.page import Page
 from step.step import Step
 
 
 class TestOtherPages(unittest.TestCase):
     def test_saucedemo_page(self):
-        cf = Config()
-        cf.http_prefix = 'https://'
-        cf.base_url = 'www.saucedemo.com/'
-        cf.base_url += 'inventory.html'
+        cf = PageConfig('https://www.saucedemo.com/inventory.html')
         cf.options_list.append("headless")
         bp = Page(cf)
         bp.go()
@@ -61,10 +58,7 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_saucedemo_refresh_page(self):
-        cf = Config()
-        cf.http_prefix = 'https://'
-        cf.base_url = 'www.saucedemo.com/'
-        cf.base_url += 'inventory.html'
+        cf = PageConfig('https://www.saucedemo.com/inventory.html')
         cf.options_list.append("headless")
         bp = Page(cf)
         bp.go()
@@ -94,9 +88,7 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_javascript_alert(self):
-        cf = Config()
-        cf.http_prefix = 'https://'
-        cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
+        cf = PageConfig('https://the-internet.herokuapp.com/javascript_alerts')
         cf.options_list.append("headless")
         bp = Page(cf)
         bp.go()
@@ -110,9 +102,7 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_javascript_confirm(self):
-        cf = Config()
-        cf.http_prefix = 'https://'
-        cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
+        cf = PageConfig('https://the-internet.herokuapp.com/javascript_alerts')
         cf.options_list.append("headless")
         bp = Page(cf)
         bp.go()
@@ -126,9 +116,7 @@ class TestOtherPages(unittest.TestCase):
         bp.close()
 
     def test_javascript_prompt(self):
-        cf = Config()
-        cf.http_prefix = 'https://'
-        cf.base_url = 'the-internet.herokuapp.com/javascript_alerts'
+        cf = PageConfig('https://the-internet.herokuapp.com/javascript_alerts')
         cf.options_list.append("headless")
         bp = Page(cf)
         bp.go()
@@ -155,9 +143,7 @@ class TestOtherPages(unittest.TestCase):
             2) At least half of the element is visible after scrolling
                a distance greater than its height + initial top offset
         """
-        cf = Config()
-        cf.http_prefix = 'https://'
-        cf.base_url = 'the-internet.herokuapp.com/floating_menu'
+        cf = PageConfig('https://the-internet.herokuapp.com/floating_menu')
         cf.options_list.append("headless")
         bp = Page(cf)
         bp.go()
@@ -185,9 +171,7 @@ class TestOtherPages(unittest.TestCase):
             suggestions_list = suggestions.element.find_elements_by_tag_name('li')        
             return len(suggestions_list)
              
-        cf = Config()
-        cf.http_prefix = 'https://'
-        cf.base_url = 'demoqa.com/autocomplete/'
+        cf = PageConfig('https://demoqa.com/autocomplete/')
         cf.options_list.append("headless")
         bp = Page(cf)
         bp.go()

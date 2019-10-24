@@ -10,8 +10,8 @@ from step.step import Step
 
 
 class Page(PageBuilder):
-    def __init__(self, config, url_extension=''):
-        PageBuilder.__init__(self, config, url_extension)
+    def __init__(self, config):
+        PageBuilder.__init__(self, config)
 
     def go(self):
         self.page.get(self.url)

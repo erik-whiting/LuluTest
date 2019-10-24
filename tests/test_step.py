@@ -1,14 +1,12 @@
 import unittest
 
-from configs.config import Config
+from configs.page_configs import PageConfig
 from page.page import Page
 from step.step import Step
 
 
 class TestStep(unittest.TestCase):
-    cf = Config()
-    cf.http_prefix = 'https://'
-    cf.base_url = 'google.com'
+    cf = PageConfig('https://google.com')
     cf.options_list.append("headless")
     step = Step("Type", "in this element", "these words")
 
