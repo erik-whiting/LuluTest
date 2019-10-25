@@ -1,37 +1,92 @@
 import unittest
-from configs import config
-from page import page
+
+from configs.page_configs import PageConfig
+from page.page import Page
+from step.step import Step
 from tests import helpers as helper
 
 
 class TestFeature(unittest.TestCase):
-	cf = config.Config()
-	cf.base_url = 'erikwhiting.com'
-	cf.subdomain = ''
-	cf.base_url += '/newsOutlet'
+    cf = PageConfig('erikwhiting.com/newsOutlet')
+    cf.options_list.append("headless")
+    bp = None
 
-	def test_write_and_click_with_headless(self):
-		self.cf.options_list = ["headless"]
-		bp = page.Page(self.cf)
-		bp.go()
-		bp.element_by("id", "sourceNews").input_text("Hello")
-		bp.element_by("id", "transmitter").click()
-		english_div = helper.evaluate_element_text(bp.element_by("id", "en1"), "Hello")
-		self.assertTrue(english_div)
-		bp.close()
+    @classmethod
+    def setUp(cls):
+        cls.bp = Page(cls.cf)
+        cls.bp.go()
 
-	def test_page_source_feature(self):
-		self.cf.options_list = ["headless"]
-		bp = page.Page(self.cf)
-		bp.go()
-		source = bp.page_source()
-		self.assertIn('<body onload="defaultBreaking()">', source)
+    @classmethod
+    def tearDown(cls):
+        cls.bp.close()
 
-	def test_page_url(self):
-		self.cf.options_list = ["headless"]
-		bp = page.Page(self.cf)
-		bp.go()
-		current_url = bp.get_url()
-		if current_url[current_url.__len__()-1] == "/":
-			current_url = current_url[:-1]
-		self.assertEqual(self.cf.url(), current_url)
+    def test_write_and_click_with_headless(self):
+        self.bp.collect_elements([
+            ("id", "sourceNews", "input box"),
+            ("id", "transmitter", "button"),
+            ("id", "en1", "english div")
+        ])
+        self.bp.element("input box").input_text("Hello")
+        self.bp.element("button").click()
+        english_div = helper.evaluate_element_text(self.bp.element("english div"), "Hello")
+        self.assertTrue(english_div)
+
+    def test_page_source_feature(self):
+        source = self.bp.page_source()
+        self.assertIn('<body onload="defaultBreaking()">', source)
+
+    def test_page_url(self):
+        current_url = self.bp.get_url()
+        if current_url[current_url.__len__() - 1] == "/":
+            current_url = current_url[:-1]
+        self.assertEqual(self.cf.url(), current_url)
+
+    def test_page_refresh(self):
+        self.bp.refresh()
+        current_url = self.bp.get_url()
+        if current_url[current_url.__len__() - 1] == "/":
+            current_url = current_url[:-1]
+        self.assertEqual(self.cf.url(), current_url)
+
+    def test_page_change_url(self):
+        current_url = self.bp.get_url()
+        if current_url[current_url.__len__() - 1] == "/":
+            current_url = current_url[:-1]
+        self.assertEqual(self.cf.url(), current_url)
+
+        self.bp.navigate_to('https://github.com')
+        current_url = self.bp.get_url()
+        if current_url[current_url.__len__() - 1] == "/":
+            current_url = current_url[:-1]
+        self.assertEqual('https://github.com', current_url)
+
+    def test_do(self):
+        self.bp.collect_elements([
+            ("id", "sourceNews"),
+            ("id", "transmitter")
+        ])
+        input_element = self.bp.elements[0]
+        transmit_button = self.bp.elements[1]
+        steps = [
+            Step("type", input_element, "Hello"),
+            Step("click", transmit_button)
+        ]
+        self.bp.do(steps)
+        english_div = helper.evaluate_element_text(
+            self.bp.grab("id", "en1"),
+            "Hello"
+        )
+        self.assertTrue(english_div)
+
+    def test_named_elements(self):
+        self.bp.collect_elements([
+            ("id", "sourceNews", "input"),
+            ("id", "transmitter", "button")
+        ])
+        steps = [
+            Step("type", self.bp.element("input"), "Hello"),
+            Step("click", self.bp.element("button"))
+        ]
+        self.bp.do(steps)
+        english_div = helper.evaluate_element_text(self.bp.grab("id", "en1"), "Hello")
+        self.assertTrue(english_div)
