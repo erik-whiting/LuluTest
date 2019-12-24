@@ -1,11 +1,8 @@
-from page import Page
-from action.driver import Driver
-
 
 class PageActions:
-    def __init__(self, page: Page, driver: Driver):
+    def __init__(self, page, driver):
         self.page = page
-        self.driver = driver.get_driver()
+        self.driver = driver
 
     def go(self):
         self.driver.get(self.page.url)

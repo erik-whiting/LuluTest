@@ -2,12 +2,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
-from action.driver import Driver
-
 
 class ElementActions:
-    def __init__(self, driver: Driver):
-        self.driver = driver.get_driver()
+    def __init__(self, driver):
+        self.driver = driver
 
     def load_element(self, element):
         until_value = None

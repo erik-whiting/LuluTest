@@ -5,6 +5,6 @@ from action.driver import Driver
 
 class Action(PageActions, ElementActions):
     def __init__(self, page):
-        self.driver = Driver()
+        self.driver = Driver().get_driver()
         PageActions.__init__(self, page, self.driver)
         ElementActions.__init__(self, self.driver)
