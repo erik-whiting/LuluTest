@@ -1,31 +1,23 @@
 import unittest
 
-from configs.page_configs import PageConfig
 from page.page import Page
+from action.action import Action
+from element import *
 from step.step import Step
 from tests import helpers as helper
 
 
 class TestFeature(unittest.TestCase):
-    cf = PageConfig('erikwhiting.com/newsOutlet')
-    cf.options_list.append("headless")
-    bp = None
-
-    @classmethod
-    def setUp(cls):
-        cls.bp = Page(cls.cf)
-        cls.bp.go()
-
-    @classmethod
-    def tearDown(cls):
-        cls.bp.close()
+    page = Page('erikwhiting.com/newsOutlet')
+    actions = Action()
+    page.elements = [
+        PageElement(("id", "sourceNews"), "input box"),
+        PageElement(("id", "transmitter"), "button"),
+        PageElement(("id", "en1"), "english div")
+    ]
 
     def test_write_and_click_with_headless(self):
-        self.bp.collect_elements([
-            ("id", "sourceNews", "input box"),
-            ("id", "transmitter", "button"),
-            ("id", "en1", "english div")
-        ])
+
         self.bp.element("input box").input_text("Hello")
         self.bp.element("button").click()
         english_div = helper.evaluate_element_text(self.bp.element("english div"), "Hello")

@@ -10,3 +10,21 @@ class PageNotLoadedError(Error):
     to avoid false positives.
     """
     pass
+
+
+class NoElementWithNameInPage(Error):
+    """
+    Raise this error when user tries to get element by name
+    from a page object, but an element with that name does
+    not exist.
+    """
+    pass
+
+
+class TooManyElementsWithNameInPage(Error):
+    """
+    Raise this error when user tries to get element by name
+    from a page object, but there are multiple elements with
+    that name.
+    """
+    pass

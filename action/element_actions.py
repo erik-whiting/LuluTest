@@ -35,6 +35,10 @@ class ElementActions:
         driver_element = load_element(self.driver, element)
         return driver_element.text
 
+    def check_element_text(self, element, text):
+        driver_element = load_element_wait_for_text(self.driver, element, text)
+        return driver_element
+
     def accept(self, element):
         driver_element = load_element(self.driver, element)
         driver_element.accept()
