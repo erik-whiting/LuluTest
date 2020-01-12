@@ -36,7 +36,7 @@ class ElementActions:
         return driver_element.text
 
     def check_element_text(self, element, text):
-        driver_element = load_element_wait_for_text(self.driver, element, text)
+        driver_element = check_element_text(self.driver, element, text)
         return driver_element
 
     def accept(self, element):

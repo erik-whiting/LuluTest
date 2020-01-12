@@ -15,7 +15,7 @@ def load_element(driver, element):
     return WebDriverWait(driver, 10).until(until_value)
 
 
-def load_element_wait_for_text(driver, element, text):
+def check_element_text(driver, element, text):
     resolver = get_element_by_resolver(element)
     until_value = ec.text_to_be_present_in_element(locator=resolver, text_=text)
     return WebDriverWait(driver, 10).until(until_value)

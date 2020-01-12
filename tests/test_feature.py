@@ -3,7 +3,7 @@ import unittest
 from page.page import Page
 from action.action import Action
 from element import *
-from step.step import Step
+from step.old_step import Step
 from tests import helpers as helper
 
 

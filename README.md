@@ -45,7 +45,7 @@ import unittest
 
 from configs.page_configs import PageConfig
 from page.page import Page
-from step.step import Step
+from step.old_step import Step
 from tests import helpers as helper
 
 
