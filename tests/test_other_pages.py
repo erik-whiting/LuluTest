@@ -1,8 +1,7 @@
 import unittest
-import time
 
 from page import Page
-from element import PageElement, Locator, AlertElement
+from element import PageElement, AlertElement
 from action import Action
 from step import *
 
