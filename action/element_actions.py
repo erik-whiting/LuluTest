@@ -39,6 +39,10 @@ class ElementActions:
         driver_element = check_element_text(self.driver, element, text)
         return driver_element
 
+    def get_attribute(self, element, attribute):
+        driver_element = load_element(self.driver, element)
+        return driver_element.get_attribute(attribute)
+
     def accept(self, element):
         driver_element = load_element(self.driver, element)
         driver_element.accept()
