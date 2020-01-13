@@ -4,8 +4,7 @@ from lulu_exceptions import PageNotLoadedError
 from page import Page
 from element import PageElement
 from action import Action
-from step import Step, Do, DoStep
-from step.steps import Steps
+from step import Step, Do, DoStep, Steps
 
 
 class SmokeTest(unittest.TestCase):
