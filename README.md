@@ -86,6 +86,14 @@ These philosophies are implemented mostly by keeping the sometimes slow
 response time of web elements in mind. The project aims to avoid
 explicit waits and sleeps as much as possible.
 
+## LuluTest Architecture
+Between December of 2019 and January of 2020, the LuluTest architecture
+was redesigned with better principles and implemented in a way as described
+in the picture below. If contributing, please do your best to adhere to the
+intended arhcitecture.
+
+![LuluTest Architecture](LuluTestArchitecture.PNG)
+
 ## Future Work
 
 The ultimate goal of LuluTest is to power a *domain specific language* to help
