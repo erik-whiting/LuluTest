@@ -18,25 +18,25 @@ The following Github users have contributed in some way to LuluTest and I want t
 
 @CarolinaKinetic
 
-LuluTest is an open source testing framework using Python and Selenium.
+LuluTest is an open source browser automation framework using Python and Selenium.
 It is relatively lightweight in that it mostly provides functions and
 classes that get pesky things like waits and "find by"s out of the way.
 
 ## Basic Usage
 
-LuluTest is designed to be used alone, so there is no need to import
-the project into your test harness, although you can if you want.
+LuluTest is designed to support both white and black box testing. The functions
+provided will work as long as the machine running the scripts can access the pages
+under test. 
 
-The framework has three main classes: `Config`, `Page`, and `BaseElement`
-that come together to provide you with the ability to produce robust automated tests. The
-basic work flow for creating a test is as such:
+The basic work flow for creating a test is as such:
 
-* Create a `Config` object
-  * This object sets the URL, specific WebDriver, and whether or not
-  the driver is headless. You can also optinally set the subdomain and port
-  numbers of the URL
-* Create a `Page` object with the `Config` object
-* In your tests, you can either use the Page object to manipulate webpages, or use the step class
+1. Create a `Page` object with the URL of the page to be tested.
+2. Create an `Action` object which will interact with elements
+3. Create an `Element` object for each element on the page that will be tested
+4. `go` to the page to be tested
+5. Create a `Steps` object of actions to take on a page
+6. `Do` the `Steps`
+7. Do your assertions
 
 ### Example Usage
 Below is an example test case:
@@ -44,28 +44,29 @@ Below is an example test case:
 ```python
 import unittest
 
-from configs.page_configs import PageConfig
-from page.page import Page
-from step.step import Step
-from tests import helpers as helper
+from lulu_exceptions import PageNotLoadedError
+from page import Page
+from element import PageElement
+from action import Action
+from step import Step, Do, DoStep, Steps
 
 
-class TestFeature(unittest.TestCase):
-    def test_write_and_click_with_headless(self):
-        cf = PageConfig('erikwhiting.com/newsOutlet')
-        cf.options_list.append("headless")
-        bp = Page(cf)
-        bp.go()
-        bp.collect_elements([
-            ("id", "sourceNews", "input box"),
-            ("id", "transmitter", "button"),
-            ("id", "en1", "english div")
-        ])
-        bp.element("input box").input_text("Hello")
-        bp.element("button").click()
-        english_div = helper.evaluate_element_text(bp.element("english div"), "Hello")
-        self.assertTrue(english_div)
-        bp.close()
+class ExampleTest(unittest.TestCase):
+    def test_write_and_click(self):
+        page = Page('http://erikwhiting.com/newsOutlet')
+        actions = Action()
+        page.elements = [
+            PageElement(("id", "sourceNews"), "input box"),
+            PageElement(("id", "transmitter"), "button"),
+            PageElement(("id", "en1"), "english div")
+        ]
+        actions.go(page)
+        actions.input_text(page.get_element("input box"), "Hello")
+        actions.click(page.get_element("button"))
+        english_div = page.get_element("english div")
+        english_text = actions.check_element_text(english_div, "Hello")
+        self.assertTrue(english_text)
+        actions.close()
 
 ```
 
@@ -85,11 +86,20 @@ These philosophies are implemented mostly by keeping the sometimes slow
 response time of web elements in mind. The project aims to avoid
 explicit waits and sleeps as much as possible.
 
+## LuluTest Architecture
+
+Between December of 2019 and January of 2020, the LuluTest architecture
+was redesigned with better principles and implemented in a way as described
+in the picture below. If contributing, please do your best to adhere to the
+intended arhcitecture.
+
+![LuluTest Architecture](LuluTestArchitecture.PNG)
+
 ## Future Work
 
-The ultimate goal of LuluTest is to become a *domain specific language* for
-testing that could be further implemented and extended with other DSLs to
-create a medium of communication for developers and domain experts.
+The ultimate goal of LuluTest is to power a *domain specific language* to help
+facilitate communication between business and technical stakeholders about
+requirements and testing.
 
 ## Contribution Guide
 
