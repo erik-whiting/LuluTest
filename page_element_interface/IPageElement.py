@@ -6,19 +6,19 @@ from selenium.webdriver.common.by import By
 
 
 def load_element(driver, element):
-    until_value = None
+    waiter = None
     if element.is_page_element:
         resolver = get_element_by_resolver(element)
-        until_value = ec.visibility_of_element_located(locator=resolver)
+        waiter = ec.visibility_of_element_located(locator=resolver)
     elif element.is_alert_element:
-        until_value = ec.alert_is_present()
-    return WebDriverWait(driver, 10).until(until_value)
+        waiter = ec.alert_is_present()
+    return WebDriverWait(driver, 10).until(waiter)
 
 
 def check_element_text(driver, element, text):
     resolver = get_element_by_resolver(element)
-    until_value = ec.text_to_be_present_in_element(locator=resolver, text_=text)
-    return WebDriverWait(driver, 10).until(until_value)
+    waiter = ec.text_to_be_present_in_element(locator=resolver, text_=text)
+    return WebDriverWait(driver, 10).until(waiter)
 
 
 def load_driver(browser_type='Chrome', options=None):
@@ -26,7 +26,10 @@ def load_driver(browser_type='Chrome', options=None):
         options = ['headless']
 
     if browser_type == 'Chrome':
-        chrome_options = resolve_options(webdriver.chrome.options.Options(), options)
+        chrome_options = resolve_options(
+            webdriver.chrome.options.Options(),
+            options
+        )
         return webdriver.Chrome(options=chrome_options)
     elif browser_type == 'Safari':
         return webdriver.Safari()

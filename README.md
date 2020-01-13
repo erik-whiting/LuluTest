@@ -26,7 +26,7 @@ classes that get pesky things like waits and "find by"s out of the way.
 
 LuluTest is designed to support both white and black box testing. The functions
 provided will work as long as the machine running the scripts can access the pages
-under t est. 
+under test. 
 
 The basic work flow for creating a test is as such:
 
@@ -36,7 +36,7 @@ The basic work flow for creating a test is as such:
 4. `go` to the page to be tested
 5. Create a `Steps` object of actions to take on a page
 6. `Do` the `Steps`
-7. Do your assertions 
+7. Do your assertions
 
 ### Example Usage
 Below is an example test case:
@@ -87,6 +87,7 @@ response time of web elements in mind. The project aims to avoid
 explicit waits and sleeps as much as possible.
 
 ## LuluTest Architecture
+
 Between December of 2019 and January of 2020, the LuluTest architecture
 was redesigned with better principles and implemented in a way as described
 in the picture below. If contributing, please do your best to adhere to the
