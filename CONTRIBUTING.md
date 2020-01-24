@@ -57,7 +57,7 @@ addressed
 * Enhancement - These issues are for taking LuluTest from what it is now, to
 what we want it to be. It includes adding features as well as refactoring
 * Good First Issue - These are issues that will help newcomers to the *project*
-in getting acquainted with the project, not neccessarily new programmers
+in getting acquainted with the project, not necessarily new programmers
 * Help Wanted - These issues are either beyond the expertise of the current
 contributors or need further discussion with someone who knows about the issue
 at hand
