@@ -130,6 +130,12 @@ class TestOtherPages(unittest.TestCase):
 
     def test_file_upload(self):
         import os  # Need this to work locally and in remote CI
+        base_path = os.getcwd()
+        if 'tests' in base_path:
+            pass
+        else:
+            base_path += 'tests'
+
         page = Page('http://the-internet.herokuapp.com/upload')
         actions = Action()
         actions.go(page)
