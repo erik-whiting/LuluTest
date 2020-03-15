@@ -143,7 +143,6 @@ class TestOtherPages(unittest.TestCase):
             PageElement(('id', 'file-upload'), 'Upload Element'),
             PageElement(('id', 'file-submit'), 'Submit Button')
         ]
-        base_path = os.getcwd()
         file_path = base_path + '/fixtures/files/upload_text_file.txt'
         actions.upload_file(page.get_element('Upload Element'), file_path)
         actions.click(page.get_element('Submit Button'))
