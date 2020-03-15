@@ -134,7 +134,7 @@ class TestOtherPages(unittest.TestCase):
         if 'tests' in base_path:
             pass
         else:
-            base_path += 'tests'
+            base_path += '/tests'
 
         page = Page('http://the-internet.herokuapp.com/upload')
         actions = Action()
