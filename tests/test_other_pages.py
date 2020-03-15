@@ -127,3 +127,25 @@ class TestOtherPages(unittest.TestCase):
         result = actions.get_attribute(page.get_element('result'), 'innerHTML')
         self.assertEqual(result, "You entered: This is a test")
         actions.close()
+
+    def test_file_upload(self):
+        import os  # Need this to work locally and in remote CI
+        base_path = os.getcwd()
+        if 'tests' in base_path:
+            pass
+        else:
+            base_path += '/tests'
+
+        page = Page('http://the-internet.herokuapp.com/upload')
+        actions = Action()
+        actions.go(page)
+        page.elements = [
+            PageElement(('id', 'file-upload'), 'Upload Element'),
+            PageElement(('id', 'file-submit'), 'Submit Button')
+        ]
+        file_path = base_path + '/fixtures/files/upload_text_file.txt'
+        actions.upload_file(page.get_element('Upload Element'), file_path)
+        actions.click(page.get_element('Submit Button'))
+
+        success_text = 'File Uploaded!'
+        self.assertIn(success_text, actions.get_page_source())

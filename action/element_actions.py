@@ -27,6 +27,9 @@ class ElementActions:
         driver_element = load_element(self.driver, element)
         driver_element.select_by_index(index)
 
+    def upload_file(self, element, path):
+        self.input_text(element, path)
+
     def get_element_attribute(self, element, attribute):
         driver_element = load_element(self.driver, element)
         return driver_element.get_attribute(attribute)
