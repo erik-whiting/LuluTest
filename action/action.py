@@ -4,8 +4,8 @@ from page_element_interface.IPageElement import *
 
 
 class Action(PageActions, ElementActions):
-    def __init__(self):
-        self.driver = load_driver()
+    def __init__(self, driver_type='Chrome'):
+        self.driver = load_driver(driver_type)
         self.action_map = None
         PageActions.__init__(self, self.driver)
         ElementActions.__init__(self, self.driver)

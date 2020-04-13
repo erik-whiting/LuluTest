@@ -2,6 +2,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 
 
@@ -21,7 +22,7 @@ def check_element_text(driver, element, text):
     return WebDriverWait(driver, 10).until(waiter)
 
 
-def load_driver(browser_type='Chrome', options=None):
+def load_driver(browser_type, options=None):
     if options is None:
         options = ['headless']
 
@@ -31,8 +32,11 @@ def load_driver(browser_type='Chrome', options=None):
             options
         )
         return webdriver.Chrome(options=chrome_options)
-    elif browser_type == 'Safari':
-        return webdriver.Safari()
+    elif browser_type == 'Firefox':
+        firefox_options = Options()
+        if "headless" in options:
+            firefox_options.headless = True
+        return webdriver.Firefox(options=firefox_options)
 
 
 def resolve_options(driver_options, options_list):
