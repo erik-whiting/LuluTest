@@ -1,5 +1,6 @@
 from selenium.webdriver.common.keys import Keys
 from page_element_interface.IPageElement import *
+from selenium.webdriver.support.ui import Select
 
 
 class ElementActions:
@@ -23,9 +24,10 @@ class ElementActions:
         driver_element.send_keys(Keys.CONTROL + 'a')
         driver_element.send_keys(Keys.DELETE)
 
-    def select_drop_down(self, element, index):
+    def select_drop_down(self, element, visible_text):
         driver_element = load_element(self.driver, element)
-        driver_element.select_by_index(index)
+        selectable = Select(driver_element)
+        selectable.select_by_visible_text(visible_text)
 
     def upload_file(self, element, path):
         self.input_text(element, path)
