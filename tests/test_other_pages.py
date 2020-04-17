@@ -149,3 +149,13 @@ class TestOtherPages(unittest.TestCase):
 
         success_text = 'File Uploaded!'
         self.assertIn(success_text, actions.get_page_source())
+
+    def test_dropdown(self):
+        page = Page('http://the-internet.herokuapp.com/dropdown')
+        actions = Action()
+        actions.go(page)
+        dropdown = PageElement(('id', 'dropdown'), 'dropdown')
+        option_2 = PageElement(('xpath', '/html/body/div[2]/div/div/select/option[3]'), 'option 2')
+        actions.select_drop_down(dropdown, 'Option 2')
+        is_selected = actions.get_attribute(option_2, 'selected')
+        self.assertTrue(is_selected)
