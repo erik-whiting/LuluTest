@@ -9,32 +9,35 @@ post processing functionality. Proceed with caution.
 
 
 class PageActionsDecorator(object):
-    CHECK_PAGE_LOAD = [
+    FUNCTIONS_NEEDING_PAGE_TO_BE_LOADED = [
         'refresh',
         'get_page_source',
         'get_url'
     ]
 
-    SET_PAGE_LOAD = [
+    FUNCTIONS_THAT_LOAD_THE_PAGE = [
         'go',
         'go_to',
         'close'
     ]
+
+    LOAD_WEB_DRIVER_MESSAGE = "Web Driver must go to page " \
+                              "before performing this action"
 
     def __init__(self, model: PageActions):
         self.model = model
 
     def __getattr__(self, func):
         def method(*args):
-            if func in self.CHECK_PAGE_LOAD:
+            if func in self.FUNCTIONS_NEEDING_PAGE_TO_BE_LOADED:
                 return self.check_page_load(func, *args)
-            if func in self.SET_PAGE_LOAD:
+            if func in self.FUNCTIONS_THAT_LOAD_THE_PAGE:
                 return self.set_page_loaded(func, *args)
         return method
 
     def check_page_load(self, func, *args):
         if not self.model.page_loaded:
-            raise PageNotLoadedError("Web Driver must go to page before performing this action")
+            raise PageNotLoadedError(self.LOAD_WEB_DRIVER_MESSAGE)
         else:
             return getattr(self.model, func)(*args)
 
