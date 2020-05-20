@@ -12,7 +12,8 @@ class PageActionsDecorator(object):
     FUNCTIONS_NEEDING_PAGE_TO_BE_LOADED = [
         'refresh',
         'get_page_source',
-        'get_url'
+        'get_url',
+        'execute_script'
     ]
 
     FUNCTIONS_THAT_LOAD_THE_PAGE = [

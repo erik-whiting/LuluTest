@@ -159,3 +159,13 @@ class TestOtherPages(unittest.TestCase):
         actions.select_drop_down(dropdown, 'Option 2')
         is_selected = actions.get_attribute(option_2, 'selected')
         self.assertTrue(is_selected)
+
+    def test_accordion(self):
+        page = Page('https://demoqa.com/accordion/')
+        actions = Action()
+        actions.go(page)
+        section_2_link = PageElement(('id', 'ui-id-3'), 'section 2')
+        script = 'return document.getElementById("ui-id-4").ariaHidden'
+        self.assertEqual(actions.execute_script(script), 'true')
+        actions.click(section_2_link)
+        self.assertEqual(actions.execute_script(script), 'false')
