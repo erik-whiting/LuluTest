@@ -20,3 +20,6 @@ class PageActions:
 
     def get_url(self):
         return self.driver.current_url
+
+    def execute_script(self, script):
+        return self.driver.execute_script(script)
