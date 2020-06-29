@@ -2,6 +2,7 @@ import unittest
 
 from page import *
 from element import *
+from action import Action
 
 
 class TestPage(unittest.TestCase):
@@ -27,3 +28,30 @@ class TestPage(unittest.TestCase):
         self.assertEqual(element_by_index, self.element)
         element_by_name = [elem for elem in p.elements if elem.name == 'test'][0]
         self.assertEqual(element_by_name, self.element)
+
+    def test_drag_drop(self):
+        p = Page('https://the-internet.herokuapp.com/drag_and_drop')
+        actions = Action()
+        actions.go(p)
+
+        p.elements = [
+            PageElement(("xpath", "(//div[@id='columns']/div)[1]"), 'first'),
+            PageElement(("xpath", "(//div[@id='columns']/div)[2]"), 'last'),
+            PageElement(('id', 'column-a'), 'column-a'),
+            PageElement(('id', 'column-b'), 'column-b')
+        ]
+
+        self.assertEqual(actions.get_attribute(p.get_element('first'), 'innerHTML'),
+                         actions.get_attribute(p.get_element('column-a'), 'innerHTML'))
+        self.assertEqual(actions.get_attribute(p.get_element('last'), 'innerHTML'),
+                         actions.get_attribute(p.get_element('column-b'), 'innerHTML'))
+
+        actions.drag_drop(p.get_element('column-a'), p.get_element('column-b'))
+
+        # these should fail
+        self.assertEqual(actions.get_attribute(p.get_element('first'), 'innerHTML'),
+                         actions.get_attribute(p.get_element('column-a'), 'innerHTML'))
+        self.assertEqual(actions.get_attribute(p.get_element('last'), 'innerHTML'),
+                         actions.get_attribute(p.get_element('column-b'), 'innerHTML'))
+
+        actions.close()
