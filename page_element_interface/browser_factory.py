@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 def new(browser_type, options):
@@ -13,7 +14,8 @@ def __chrome_driver(options):
     chrome_options = webdriver.chrome.options.Options()
     if 'headless' in options:
         chrome_options.add_argument('--headless')
-    return webdriver.Chrome(options=chrome_options)
+    return webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    # return webdriver.Chrome(options=chrome_options)
 
 
 def __firefox_driver(options):
