@@ -1,7 +1,6 @@
 from selenium.webdriver.common.keys import Keys
 from page_element_interface.IPageElement import *
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 class ElementActions:
@@ -56,8 +55,3 @@ class ElementActions:
     def dismiss(self, element):
         driver_element = load_element(self.driver, element)
         driver_element.dismiss()
-
-    def drag_drop(self, source_element, destination_element):
-        source_element = load_element(self.driver, source_element)
-        destination_element = load_element(self.driver, destination_element)
-        ActionChains(self.driver).drag_and_drop(source_element, destination_element).perform()
