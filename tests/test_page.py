@@ -2,7 +2,6 @@ import unittest
 
 from page import *
 from element import *
-from action import Action
 
 
 class TestPage(unittest.TestCase):
