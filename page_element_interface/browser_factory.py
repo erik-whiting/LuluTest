@@ -14,8 +14,8 @@ def __chrome_driver(options):
     chrome_options = webdriver.chrome.options.Options()
     if 'headless' in options:
         chrome_options.add_argument('--headless')
-    return webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-    # return webdriver.Chrome(options=chrome_options)
+    return webdriver.Chrome(ChromeDriverManager().install(),
+                            options=chrome_options)
 
 
 def __firefox_driver(options):
