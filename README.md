@@ -4,6 +4,8 @@
 ## Special Thanks
 The following Github users have contributed in some way to LuluTest and I want to thank them so much for their time, effort, and skill.
 
+@wangonya
+
 @benjifs
 
 @alwinaind
@@ -11,8 +13,6 @@ The following Github users have contributed in some way to LuluTest and I want t
 @ddrm86
 
 @MarioHdpz
-
-@wangonya
 
 @FarhiaM
 
