@@ -160,12 +160,12 @@ class TestOtherPages(unittest.TestCase):
         is_selected = actions.get_attribute(option_2, 'selected')
         self.assertTrue(is_selected)
 
-    def test_accordion(self):
-        page = Page('https://demoqa.com/accordion/')
+    def test_script_execution(self):
+        page = Page('https://demoqa.com/accordian/')
         actions = Action()
         actions.go(page)
-        section_2_link = PageElement(('id', 'ui-id-3'), 'section 2')
-        script = 'return document.getElementById("ui-id-4").ariaHidden'
-        self.assertEqual(actions.execute_script(script), 'true')
-        actions.click(section_2_link)
-        self.assertEqual(actions.execute_script(script), 'false')
+        click_header_script = 'document.getElementById("section2Heading").click()'
+        div_class_name = 'return document.getElementById("section2Content").parentElement.className'
+        self.assertEqual(actions.execute_script(div_class_name), 'collapse')
+        actions.execute_script(click_header_script)
+        self.assertEqual(actions.execute_script(div_class_name), 'collapsing')
