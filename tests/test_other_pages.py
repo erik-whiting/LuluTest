@@ -127,3 +127,45 @@ class TestOtherPages(unittest.TestCase):
         result = actions.get_attribute(page.get_element('result'), 'innerHTML')
         self.assertEqual(result, "You entered: This is a test")
         actions.close()
+
+    def test_file_upload(self):
+        import os  # Need this to work locally and in remote CI
+        base_path = os.getcwd()
+        if 'tests' in base_path:
+            pass
+        else:
+            base_path += '/tests'
+
+        page = Page('http://the-internet.herokuapp.com/upload')
+        actions = Action()
+        actions.go(page)
+        page.elements = [
+            PageElement(('id', 'file-upload'), 'Upload Element'),
+            PageElement(('id', 'file-submit'), 'Submit Button')
+        ]
+        file_path = base_path + '/fixtures/files/upload_text_file.txt'
+        actions.upload_file(page.get_element('Upload Element'), file_path)
+        actions.click(page.get_element('Submit Button'))
+
+        success_text = 'File Uploaded!'
+        self.assertIn(success_text, actions.get_page_source())
+
+    def test_dropdown(self):
+        page = Page('http://the-internet.herokuapp.com/dropdown')
+        actions = Action()
+        actions.go(page)
+        dropdown = PageElement(('id', 'dropdown'), 'dropdown')
+        option_2 = PageElement(('xpath', '/html/body/div[2]/div/div/select/option[3]'), 'option 2')
+        actions.select_drop_down(dropdown, 'Option 2')
+        is_selected = actions.get_attribute(option_2, 'selected')
+        self.assertTrue(is_selected)
+
+    def test_script_execution(self):
+        page = Page('https://demoqa.com/accordian/')
+        actions = Action()
+        actions.go(page)
+        click_header_script = 'document.getElementById("section2Heading").click()'
+        div_class_name = 'return document.getElementById("section2Content").parentElement.className'
+        self.assertEqual(actions.execute_script(div_class_name), 'collapse')
+        actions.execute_script(click_header_script)
+        self.assertEqual(actions.execute_script(div_class_name), 'collapsing')
