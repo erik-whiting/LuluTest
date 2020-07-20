@@ -1,12 +1,7 @@
 import unittest
 
-import yaml
-
-from lulu_exceptions import PageNotLoadedError
-from page import Page
-from element import PageElement
 from action import Action
-from step import Step, Do, DoStep, Steps
+from step import Do, Steps
 from page import page_factory
 
 
@@ -20,7 +15,7 @@ class PrebuiltPageTest(unittest.TestCase):
 
     prebuilt_pages_directory = base_path + '/fixtures/pages/'
     page_configs = [
-        prebuilt_pages_directory + 'news_outlet.yml',
+        prebuilt_pages_directory + 'news_outlet.json',
         prebuilt_pages_directory + 'inventory.yml'
     ]
     pages = page_factory.generate_pages(page_configs)
