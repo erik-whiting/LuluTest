@@ -12,13 +12,21 @@ def generate_pages(files) -> Dict[str, Page]:
     pages = {}
     for file in files:
         page_name = re.split('\\\\|/|.yml', file)[-2]
-        with open(file) as f:
-            page_data = yaml.load(f, Loader=yaml.FullLoader)
-        pages[page_name] = generate_page(page_data['page'])
+        pages[page_name] = generate_page(file)
     return pages
 
 
-def generate_page(page_data) -> Page:
+def generate_page(file) -> Page:
+    file_type = file.split('.')[-1]
+    file_type = file_type.lower()
+    gen_function = eval('generate_page_from_{}'.format(file_type))
+    page = gen_function(file)
+    return page
+
+
+def generate_page_from_yml(file) -> Page:
+    with open(file) as f:
+        page_data = yaml.load(f, Loader=yaml.FullLoader)['page']
     url = page_data['url']
     page = Page(url)
 
