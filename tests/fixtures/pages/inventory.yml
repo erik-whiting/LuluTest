@@ -1,0 +1,25 @@
+page:
+  url: https://www.saucedemo.com/inventory.html
+  elements:
+    inv_btn1:
+      xpath: (//button[@class='btn_primary btn_inventory'])[1]
+    inv_btn2:
+      xpath: (//button[@class='btn_primary btn_inventory'])[2]
+    inv_btn3:
+      xpath: (//button[@class='btn_primary btn_inventory'])[3]
+    Cart Badge:
+      class: shopping_cart_badge
+    Cart Link:
+      class: shopping_cart_link
+    Cart Button:
+      class: cart_button
+    Checkout Button:
+      class: checkout_button
+    First Name:
+      id: first-name
+    Last Name:
+      id: last-name
+    Zip:
+      id: postal-code
+    Completion Header:
+      class: complete-header

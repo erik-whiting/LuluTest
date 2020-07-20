@@ -1,0 +1,9 @@
+page:
+  url: http://erikwhiting.com/newsOutlet
+  elements:
+    input_box:
+      id: sourceNews
+    button:
+      id: transmitter
+    english_div:
+      id: en1
