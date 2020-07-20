@@ -3,58 +3,9 @@ import unittest
 from page import Page
 from element import PageElement, AlertElement
 from action import Action
-from step import *
 
 
 class TestOtherPages(unittest.TestCase):
-    def test_saucedemo_page(self):
-        page = Page('https://www.saucedemo.com/inventory.html')
-        actions = Action()
-        actions.go(page)
-
-        page.elements = [
-            PageElement(("xpath", "(//button[@class='btn_primary btn_inventory'])[1]"), "inv_btn1"),
-            PageElement(("xpath", "(//button[@class='btn_primary btn_inventory'])[2]"), "inv_btn2"),
-            PageElement(("xpath", "(//button[@class='btn_primary btn_inventory'])[3]"), "inv_btn3"),
-            PageElement(("class", "shopping_cart_badge"), "Cart Badge"),
-            PageElement(("class", "shopping_cart_link"), "Cart Link"),
-            PageElement(("class", "cart_button"), "Cart Button"),
-            PageElement(("class", "checkout_button"), "Checkout Button"),
-            PageElement(("id", "first-name"), "First Name"),
-            PageElement(("id", "last-name"), "Last Name"),
-            PageElement(("id", "postal-code"), "Zip"),
-            PageElement(("class", "complete-header"), "Completion Header")
-        ]
-
-        steps = Steps(actions, [
-            ('click', page.get_element('inv_btn1')),
-            ('click', page.get_element('inv_btn2')),
-            ('click', page.get_element('inv_btn3'))
-        ])
-
-        Do(steps)
-        items_in_cart = actions.get_attribute(page.get_element("Cart Badge"), "innerHTML")
-        self.assertEqual(items_in_cart, "3")
-
-        actions.click(page.get_element("Cart Link"))
-        actions.click(page.get_element("Cart Button"))
-        items_in_cart = actions.get_attribute(page.get_element("Cart Badge"), "innerHTML")
-        self.assertEqual(items_in_cart, "2")
-        actions.click(page.get_element("Checkout Button"))
-
-        steps = Steps(actions, [
-            ('type', page.get_element('First Name'), 'Jane'),
-            ('type', page.get_element('Last Name'), 'Doe'),
-            ('type', page.get_element('Zip'), '12345'),
-            ('click', page.get_element('Cart Button'))
-        ])
-        Do(steps)
-
-        actions.click(page.get_element("Cart Button"))
-        checkout_complete_page = actions.get_attribute(page.get_element("Completion Header"), "innerHTML")
-        self.assertEqual(checkout_complete_page, "THANK YOU FOR YOUR ORDER")
-
-        actions.close()
 
     def test_saucedemo_refresh_page(self):
         page = Page('https://www.saucedemo.com/inventory.html')
