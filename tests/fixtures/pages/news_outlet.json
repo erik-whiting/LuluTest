@@ -1,0 +1,22 @@
+{
+  "page": {
+    "url": "http://erikwhiting.com/newsOutlet",
+    "elements": [
+      {
+        "name": "input_box",
+        "locator": "id",
+        "value": "sourceNews"
+      },
+      {
+        "name": "button",
+        "locator": "id",
+        "value": "transmitter"
+      },
+      {
+        "name": "english_div",
+        "locator": "id",
+        "value": "en1"
+      }
+    ]
+  }
+}
