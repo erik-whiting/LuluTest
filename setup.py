@@ -8,7 +8,6 @@ setup(
     author='Erik Whiting',
     author_email='erik@erikwhiting.com',
     url='https://github.com/erik-whiting/LuluTest',
-    download_url='',
     keywords=['testing', 'browser automation', 'webdriver'],
     install_requires=[
         'selenium',
