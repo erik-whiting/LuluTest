@@ -21,6 +21,3 @@ class TestElements(unittest.TestCase):
         test_locator = Locator('id', 'test')
         self.assertEqual(test_locator.by, 'id')
         self.assertEqual(test_locator.value, 'test')
-        locator_tuple = test_locator.to_tuple()
-        self.assertEqual(locator_tuple[0], 'id')
-        self.assertEqual(locator_tuple[1], 'test')
