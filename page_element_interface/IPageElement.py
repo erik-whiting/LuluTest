@@ -23,6 +23,8 @@ def check_element_text(driver, element, text):
 
 def load_driver(browser_type, options=None):
     if options is None:
+        options = []
+    if 'not headless' not in options:
         options = ['headless']
 
     return browser_factory.new(browser_type, options)

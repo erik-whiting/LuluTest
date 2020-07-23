@@ -5,8 +5,12 @@ from action.page_actions_decorator import PageActionsDecorator
 
 
 class Action(PageActionsDecorator, ElementActions):
-    def __init__(self, driver_type='Chrome'):
-        self.driver = load_driver(driver_type)
+    def __init__(self, driver_type=None, options=None):
+        if driver_type is None:
+            driver_type = 'Chrome'
+        if options is None:
+            options = ['headless']
+        self.driver = load_driver(driver_type, options)
         self.action_map = None
         PageActionsDecorator.__init__(self, PageActions(self.driver))
         ElementActions.__init__(self, self.driver)
