@@ -70,6 +70,44 @@ class ExampleTest(unittest.TestCase):
 
 ```
 
+Alternatively, you can also build pages via either YAML or JSON and import
+them for use. For example, the above page can be modeled in `newso_outlet.yml`
+like such:
+```yaml
+page:
+  url: http://erikwhiting.com/newsOutlet
+  elements:
+    input_box:
+      id: sourceNews
+    button:
+      id: transmitter
+    english_div:
+      id: en1
+```
+import this file into your test script to avoid writing element finding code:
+```python
+# In a setup method:
+base_path = os.getcwd()
+prebuilt_pages_directory = base_path + '/fixtures/pages/'
+page_configs = [
+    prebuilt_pages_directory + 'news_outlet.yml',
+    prebuilt_pages_directory + 'other_page.yml',
+    prebuilt_pages_directory + 'even_another_page.json',
+]
+pages = page_factory.generate_pages(page_configs)
+
+# Now all subsequent tests have access to this page object
+def test_basic_usage(self):
+    page = self.pages['news_outlet']
+    actions = Action()
+    actions.go(page)
+    actions.input_text(page.get_element("input_box"), "Hello")
+    actions.click(page.get_element("button"))
+    english_div = page.get_element("english_div")
+    english_text = actions.check_element_text(english_div, "Hello")
+    self.assertTrue(english_text)
+    actions.close()
+```
 ## Features
 
 There are two main design philosophies driving the development of LuluTest:
