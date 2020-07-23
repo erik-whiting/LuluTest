@@ -1,13 +1,10 @@
 import unittest
 
-import yaml
-
 from lulu_exceptions import PageNotLoadedError
 from page import Page
 from element import PageElement
 from action import Action
 from step import Step, Do, DoStep, Steps
-from page import page_factory
 
 
 class SmokeTest(unittest.TestCase):
