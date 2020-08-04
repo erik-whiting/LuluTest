@@ -1,4 +1,4 @@
-from lulu_exceptions import *
+from ..lulu_exceptions import *
 
 
 class Page:
