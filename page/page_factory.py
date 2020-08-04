@@ -4,8 +4,8 @@ import yaml
 import re
 import json
 
-from element import BaseElement, PageElement
-from page import Page
+from ..element import BaseElement, PageElement
+from .page import Page
 
 
 def generate_pages(files) -> Dict[str, Page]:

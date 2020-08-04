@@ -1,5 +1,5 @@
-from action.page_actions import PageActions
-from lulu_exceptions import PageNotLoadedError
+from .page_actions import PageActions
+from ..lulu_exceptions import PageNotLoadedError
 
 '''
 This class contains meta-programming to decorate the

@@ -1,6 +1,7 @@
 from selenium.webdriver.common.keys import Keys
-from page_element_interface.IPageElement import *
 from selenium.webdriver.support.ui import Select
+
+from ..page_element_interface.IPageElement import *
 
 
 class ElementActions:

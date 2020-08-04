@@ -1,7 +1,7 @@
-from action.element_actions import ElementActions
-from action.page_actions import PageActions
-from page_element_interface.IPageElement import *
-from action.page_actions_decorator import PageActionsDecorator
+from .element_actions import ElementActions
+from .page_actions import PageActions
+from .page_actions_decorator import PageActionsDecorator
+from ..page_element_interface.IPageElement import *
 
 
 class Action(PageActionsDecorator, ElementActions):

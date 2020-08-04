@@ -1,6 +1,6 @@
-from action.action import Action
-from action.page_actions import PageActions
-from action.element_actions import ElementActions
+from .action import Action
+from .page_actions import PageActions
+from .element_actions import ElementActions
 
 page_action_map = {
     "go": PageActions.go,
