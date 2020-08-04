@@ -1,5 +1,5 @@
-from element import BaseElement
-from step import Step
+from ..element import BaseElement
+from .step import Step
 
 
 class Steps:

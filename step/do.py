@@ -1,6 +1,6 @@
-from action import *
-from page import *
-from element import *
+from ..action import *
+from ..page import *
+from ..element import *
 
 
 class Do:
