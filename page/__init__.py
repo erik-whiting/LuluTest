@@ -1,1 +1,1 @@
-from page.page import Page
+from .page import Page
