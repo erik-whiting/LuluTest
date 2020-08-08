@@ -44,10 +44,10 @@ Below is an example test case:
 ```python
 import unittest
 
-from lulu_exceptions import PageNotLoadedError
-from page import Page
-from element import PageElement
-from action import Action
+from LuluTest.lulu_exceptions import PageNotLoadedError
+from LuluTest.page import Page
+from LuluTest.element import PageElement
+from LuluTest.action import Action
 from step import Step, Do, DoStep, Steps
 
 

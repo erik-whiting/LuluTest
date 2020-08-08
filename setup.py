@@ -1,21 +1,21 @@
-from distutils.core import setup
-setup(
+import setuptools
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
     name='LuluTest',
-    packages=['LuluTest'],
-    version='0.1',
-    license='apache-2.0',
-    description='A suite of tools to un-complicate browser automation',
+    version='0.1.0',
     author='Erik Whiting',
     author_email='erik@erikwhiting.com',
+    description='A web browser automation framework',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/erik-whiting/LuluTest',
-    keywords=['testing', 'browser automation', 'webdriver'],
-    install_requires=[
-        'selenium',
-        'urllib3',
-        'pyyaml'
-    ],
+    packages=setuptools.find_packages(),
     classifiers=[
         'Development Status :: 4 - Beta',
+        'Programming Language :: Python :: 3',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Testing',
         'License :: OSI Approved :: Apache Software License',
@@ -24,4 +24,5 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
+    python_requires='>=3.5'
 )

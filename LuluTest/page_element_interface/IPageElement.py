@@ -2,7 +2,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 
-from page_element_interface import browser_factory
+from LuluTest.page_element_interface import browser_factory
 
 
 def load_element(driver, element):
