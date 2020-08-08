@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='LuluTest',
-    version='0.0.1',
+    version='0.1.0',
     author='Erik Whiting',
     author_email='erik@erikwhiting.com',
     description='A web browser automation framework',
