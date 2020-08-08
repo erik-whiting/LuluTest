@@ -1,6 +1,5 @@
-from action import *
-from page import *
-from element import *
+from LuluTest.action import *
+from LuluTest.page import *
 
 
 class Do:

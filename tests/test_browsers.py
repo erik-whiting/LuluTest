@@ -1,8 +1,8 @@
 import unittest
 
-from page import Page
-from element import PageElement
-from action import Action
+from LuluTest.page import Page
+from LuluTest.element import PageElement
+from LuluTest.action import Action
 
 
 class TestBrowsers(unittest.TestCase):

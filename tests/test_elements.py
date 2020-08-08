@@ -1,6 +1,6 @@
 import unittest
 
-from element import *
+from LuluTest.element import *
 
 
 class TestElements(unittest.TestCase):

@@ -1,7 +1,7 @@
-from action.element_actions import ElementActions
-from action.page_actions import PageActions
-from page_element_interface.IPageElement import *
-from action.page_actions_decorator import PageActionsDecorator
+from LuluTest.action.element_actions import ElementActions
+from LuluTest.action.page_actions import PageActions
+from LuluTest.action.page_actions_decorator import PageActionsDecorator
+from LuluTest.page_element_interface.IPageElement import load_driver
 
 
 class Action(PageActionsDecorator, ElementActions):
