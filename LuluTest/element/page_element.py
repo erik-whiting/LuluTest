@@ -1,4 +1,4 @@
-from element.base_element import BaseElement
+from LuluTest.element import BaseElement
 
 
 class PageElement(BaseElement):

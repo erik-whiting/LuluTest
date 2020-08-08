@@ -1,8 +1,8 @@
 import unittest
 
-from action import Action
+from LuluTest.action import Action
 from step import Do, Steps
-from page import page_factory
+from LuluTest.page import page_factory
 
 
 class PrebuiltPageTest(unittest.TestCase):

@@ -1,8 +1,8 @@
 import unittest
 
-from page import Page
-from element import PageElement, AlertElement
-from action import Action
+from LuluTest.page import Page
+from LuluTest.element import PageElement, AlertElement
+from LuluTest.action import Action
 
 
 class TestOtherPages(unittest.TestCase):

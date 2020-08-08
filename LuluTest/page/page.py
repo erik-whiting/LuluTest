@@ -1,6 +1,3 @@
-from lulu_exceptions import *
-
-
 class Page:
     def __init__(self, url, elements=None):
         if elements is None:

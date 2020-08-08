@@ -1,6 +1,7 @@
 from selenium.webdriver.common.keys import Keys
-from page_element_interface.IPageElement import *
 from selenium.webdriver.support.ui import Select
+
+from LuluTest.page_element_interface.IPageElement import load_element, check_element_text
 
 
 class ElementActions:
