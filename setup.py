@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='LuluTest',
-    version='0.1.0',
+    version='1.0.0',
     author='Erik Whiting',
     author_email='erik@erikwhiting.com',
     description='A web browser automation framework',
@@ -13,6 +13,11 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     url='https://github.com/erik-whiting/LuluTest',
     packages=setuptools.find_packages(),
+    install_requires=[
+        'selenium',
+        'urllib3',
+        'pyyaml'
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Programming Language :: Python :: 3',
