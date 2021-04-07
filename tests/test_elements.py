@@ -1,6 +1,8 @@
 import unittest
 
-from LuluTest.element import *
+from LuluTest.element.page_element import PageElement
+from LuluTest.element.alert_element import AlertElement
+from LuluTest.element.locator import Locator
 
 
 class TestElements(unittest.TestCase):

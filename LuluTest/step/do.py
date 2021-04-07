@@ -1,5 +1,6 @@
 from LuluTest.action import *
-from LuluTest.page import *
+from LuluTest.page import page
+from LuluTest.element import base_element
 
 
 class Do:
@@ -17,9 +18,9 @@ class DoStep:
         self.__do_operation(step)
 
     def __resolve_subject(self):
-        if type(self.subject) == Page or self.subject is None:
+        if type(self.subject) == page.Page or self.subject is None:
             self.map = page_action_map
-        elif isinstance(self.subject, BaseElement):
+        elif isinstance(self.subject, base_element.BaseElement):
             self.map = element_action_map
 
     def __do_operation(self, step):

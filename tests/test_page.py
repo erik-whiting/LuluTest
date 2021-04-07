@@ -1,7 +1,7 @@
 import unittest
 
 from LuluTest import PageElement, Locator
-from LuluTest.page import *
+from LuluTest.page import Page
 
 
 class TestPage(unittest.TestCase):

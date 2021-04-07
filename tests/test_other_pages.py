@@ -3,6 +3,7 @@ import unittest
 from LuluTest.page import Page
 from LuluTest.element import PageElement, AlertElement
 from LuluTest.action import Action
+from LuluTest.step import *
 
 
 class TestOtherPages(unittest.TestCase):
@@ -13,11 +14,21 @@ class TestOtherPages(unittest.TestCase):
         actions.go(page)
 
         page.elements = [
-            PageElement(("xpath", "(//button[@class='btn_primary btn_inventory'])[1]"), "button 1"),
-            PageElement(("xpath", "(//div[@class='inventory_item_name'])[1]"), "inventory item"),
+            PageElement(('id', 'user-name'), 'username field'),
+            PageElement(('id', 'password'), 'password field'),
+            PageElement(('id', 'login-button'), 'login button'),
+            PageElement(("id", "add-to-cart-sauce-labs-backpack"), "button 1"),
+            PageElement(("xpath", '//*[@id="item_4_title_link"]/div'), "inventory item"),
             PageElement(("class", "shopping_cart_badge"), "shopping cart badge"),
             PageElement(("class", "inventory_item_name"), "item name")
         ]
+
+        login = Steps(actions, [
+            ('type', page.get_element('username field'), 'standard_user'),
+            ('type', page.get_element('password field'), 'secret_sauce'),
+            ('click', page.get_element('login button'))
+        ])
+        Do(login)
 
         actions.click(page.get_element("button 1"))
         item_name = actions.get_attribute(page.get_element("inventory item"), "innerHTML")

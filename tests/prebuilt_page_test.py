@@ -1,7 +1,6 @@
 import unittest
-
-from LuluTest.action import Action
-from step import Do, Steps
+from LuluTest.action import *
+from LuluTest.step import *
 from LuluTest.page import page_factory
 
 
@@ -24,17 +23,22 @@ class PrebuiltPageTest(unittest.TestCase):
         page = self.pages['news_outlet']
         actions = Action()
         actions.go(page)
-        actions.input_text(page.get_element("input_box"), "Hello")
-        actions.click(page.get_element("button"))
-        english_div = page.get_element("english_div")
-        english_text = actions.check_element_text(english_div, "Hello")
-        self.assertTrue(english_text)
+        url = actions.get_url()
+        self.assertEqual(url, page.url + '/')
         actions.close()
 
     def test_complicated_page(self):
         page = self.pages['inventory']
         actions = Action()
         actions.go(page)
+
+        login = Steps(actions, [
+            ('type', page.get_element('user_name'), 'standard_user'),
+            ('type', page.get_element('password'), 'secret_sauce'),
+            ('click', page.get_element('login_button'))
+        ])
+
+        Do(login)
 
         steps = Steps(actions, [
             ('click', page.get_element('inv_btn1')),
@@ -44,10 +48,12 @@ class PrebuiltPageTest(unittest.TestCase):
 
         Do(steps)
         items_in_cart = actions.get_attribute(page.get_element("Cart Badge"), "innerHTML")
+        # Test is flaky here, sometimes it checks the cart value
+        # before the cart is updated.
         self.assertEqual(items_in_cart, "3")
 
         actions.click(page.get_element("Cart Link"))
-        actions.click(page.get_element("Cart Button"))
+        actions.click(page.get_element("Remove Button"))
         items_in_cart = actions.get_attribute(page.get_element("Cart Badge"), "innerHTML")
         self.assertEqual(items_in_cart, "2")
         actions.click(page.get_element("Checkout Button"))
