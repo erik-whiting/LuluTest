@@ -1,3 +1,6 @@
+from ..lulu_exceptions import *
+
+
 class Page:
     def __init__(self, url, elements=None):
         if elements is None:
@@ -20,6 +23,6 @@ class Page:
         if size == 1:
             return elements[0]
         elif size == 0:
-            raise NoElementWithNameInPage
+            raise LuluExceptions.NoElementWithNameInPage
         elif size > 1:
-            raise TooManyElementsWithNameInPage
+            raise LuluExceptions.TooManyElementsWithNameInPage
