@@ -1,18 +1,26 @@
 page:
   url: https://www.saucedemo.com/inventory.html
   elements:
+    user_name:
+      id: user-name
+    password:
+      id: password
+    login_button:
+      id: login-button
     inv_btn1:
-      xpath: (//button[@class='btn_primary btn_inventory'])[1]
+      id: add-to-cart-sauce-labs-backpack
     inv_btn2:
-      xpath: (//button[@class='btn_primary btn_inventory'])[2]
+      id: add-to-cart-sauce-labs-bike-light
     inv_btn3:
-      xpath: (//button[@class='btn_primary btn_inventory'])[3]
+      id: add-to-cart-sauce-labs-onesie
     Cart Badge:
       class: shopping_cart_badge
     Cart Link:
       class: shopping_cart_link
     Cart Button:
       class: cart_button
+    Remove Button:
+      id: remove-sauce-labs-backpack
     Checkout Button:
       class: checkout_button
     First Name:

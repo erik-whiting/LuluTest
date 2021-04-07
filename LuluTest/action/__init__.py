@@ -2,6 +2,14 @@ from .action import Action
 from .page_actions import PageActions
 from .element_actions import ElementActions
 
+__all__ = [
+    'Action',
+    'PageActions',
+    'ElementActions',
+    'page_action_map',
+    'element_action_map'
+]
+
 page_action_map = {
     "go": PageActions.go,
     "go to": PageActions.go_to,
