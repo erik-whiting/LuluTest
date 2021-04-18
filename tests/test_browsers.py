@@ -1,17 +1,11 @@
 import unittest
 
 from LuluTest.page import Page
-from LuluTest.element import PageElement
 from LuluTest.action import Action
 
 
 class TestBrowsers(unittest.TestCase):
     page = Page('http://erikwhiting.com/newsOutlet')
-    page.elements = [
-        PageElement(("id", "sourceNews"), "input box"),
-        PageElement(("id", "transmitter"), "button"),
-        PageElement(("id", "en1"), "english div")
-    ]
     actions = None
 
     def _set_up(self, browser):
