@@ -27,3 +27,10 @@ install:
 
 
 script: python -m unittest discover tests
+
+deploy:
+  provider: pypi
+  user: "__token__"
+  password: $PYPI_ACCESS_TOKEN
+  on:
+    branch: master
