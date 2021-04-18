@@ -11,12 +11,14 @@ addons:
 
 install:
   - pip install -r requirements.txt
+    # Get Chrome and its driver
   - wget -N https://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip -P ~/
   - unzip ~/chromedriver_linux64.zip -d ~/
   - rm ~/chromedriver_linux64.zip
   - sudo mv -f ~/chromedriver /usr/local/share/
   - sudo chmod +x /usr/local/share/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+    # Get Firefox and its driver
   - wget -N https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz -P ~/
   - tar -xzf ~/geckodriver-v0.26.0-linux64.tar.gz -C ~/
   - rm ~/geckodriver-v0.26.0-linux64.tar.gz
