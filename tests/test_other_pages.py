@@ -135,7 +135,8 @@ class TestOtherPages(unittest.TestCase):
     def test_drag_drop(self):
         # import pdb
         page = Page('https://the-internet.herokuapp.com/drag_and_drop')
-        actions = Action('Chrome', 'not headless')
+        # actions = Action('Chrome', 'not headless')
+        actions = Action()
         block_a = PageElement(('id', 'column-a'), 'block a')
         block_b = PageElement(('id', 'column-b'), 'block b')
         actions.go(page)
