@@ -61,3 +61,23 @@ class TestBrowsers(unittest.TestCase):
         self.actions.go_to('https://github.com')
         current_url = self.actions.get_url()
         self.assertEqual('https://github.com/', current_url)
+
+    def test_page_source_feature_edge(self):
+        self._set_up('Edge')
+        source = self.actions.get_page_source()
+        self.assertIn('<body onload="defaultBreaking()">', source)
+
+    def test_page_refresh_edge(self):
+        self._set_up('Edge')
+        self.actions.refresh()
+        current_url = self.actions.get_url()
+        self.assertEqual('http://erikwhiting.com/newsOutlet/', current_url)
+
+    def test_page_change_url_edge(self):
+        self._set_up('Edge')
+        current_url = self.actions.get_url()
+        self.assertEqual('http://erikwhiting.com/newsOutlet/', current_url)
+
+        self.actions.go_to('https://github.com')
+        current_url = self.actions.get_url()
+        self.assertEqual('https://github.com/', current_url)
