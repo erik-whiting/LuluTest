@@ -131,3 +131,17 @@ class TestOtherPages(unittest.TestCase):
         self.assertEqual(actions.execute_script(div_class_name), 'collapse')
         actions.execute_script(click_header_script)
         self.assertEqual(actions.execute_script(div_class_name), 'collapsing')
+
+    def test_drag_drop(self):
+        # import pdb
+        page = Page('https://the-internet.herokuapp.com/drag_and_drop')
+        actions = Action('Chrome', 'not headless')
+        block_a = PageElement(('id', 'column-a'), 'block a')
+        block_b = PageElement(('id', 'column-b'), 'block b')
+        actions.go(page)
+        actions.move_to_element(block_a, block_b)
+        first_block = PageElement(('xpath', '/html/body/div[2]/div/div/div/div[1]'), 'first element')
+        # pdb.set_trace()
+        block_b_text = actions.get_text(block_b)
+        first_block_text = actions.get_text(first_block)
+        self.assertEqual(first_block_text, block_b_text)

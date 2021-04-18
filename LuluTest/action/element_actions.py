@@ -1,4 +1,5 @@
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 
 from LuluTest.page_element_interface.IPageElement import load_element, check_element_text
@@ -56,3 +57,10 @@ class ElementActions:
     def dismiss(self, element):
         driver_element = load_element(self.driver, element)
         driver_element.dismiss()
+
+    def move_to_element(self, element, destination):
+        driver_element = load_element(self.driver, element)
+        destination_element = load_element(self.driver, destination)
+        action = ActionChains(self.driver)
+        action.drag_and_drop(driver_element, destination_element).perform()
+        self.click(destination)
