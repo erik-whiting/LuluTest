@@ -38,6 +38,11 @@ install:
   - sudo mv -f ~/msedgedriver /usr/local/share/
   - sudo chmod +x /usr/local/share/msedgedriver
   - sudo ln -s /usr/local/share/msedgedriver /usr/local/bin/msedgedriver
+    # Debugging statement, remove when this is figured out
+  - which msedgedriver
+  - echo $PATH
+  - ls /usr/local/share
+  - ls /usr/local/bin
 
 
 script: python -m unittest discover tests
