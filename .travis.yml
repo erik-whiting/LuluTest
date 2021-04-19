@@ -36,7 +36,7 @@ install:
   - unzip ~/edgedriver_linux64.zip -d ~/
   - rm ~/edgedriver_linux64.zip
   - sudo mv -f ~/msedgedriver /usr/local/share/
-  - sudo chmod +x /usr/local/share/msedgedriver
+  - sudo chmod 777 /usr/local/share/msedgedriver
   - sudo ln -s /usr/local/share/msedgedriver /usr/local/bin/msedgedriver
     # Debugging statement, remove when this is figured out
   - which msedgedriver
