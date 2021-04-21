@@ -40,7 +40,9 @@ install:
   - sudo ln -s /usr/local/share/msedgedriver /usr/local/bin/msedgedriver
     # Debugging statement, remove when this is figured out
   - which msedgedriver
+  - which microsoft-edge-dev
   - echo $PATH
+  - echo $TRAVIS
   - ls /usr/local/share
   - ls /usr/local/bin
 
