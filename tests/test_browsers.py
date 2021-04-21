@@ -14,12 +14,6 @@ class TestBrowsers(unittest.TestCase):
     def _set_up(self, browser):
         if self.running_in_travis and browser.lower() == 'edge':
             import shutil
-            # Debugging statement, remove when this is figured out
-            print('***USING TRAVIS***')
-            print('Debugging statements start here')
-            print(f'shutil.which("microsoft-edge-dev") = {shutil.which("microsoft-edge-dev")}')
-            print(f'shutil.which("msedgedriver") = {shutil.which("msedgedriver")}')
-            # Delete above
             options_hash = BrowserOptions({
                 'driver_type': browser,
                 'headless': True,
