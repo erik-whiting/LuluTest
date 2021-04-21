@@ -11,7 +11,7 @@ class TestBrowsers(unittest.TestCase):
 
     def _set_up(self, browser):
         options_hash = BrowserOptions({'driver_type': browser})
-        self.actions = Action(browser)
+        self.actions = Action(options_hash)
         self.actions.go(self.page)
 
     def tearDown(self):
