@@ -3,6 +3,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 
 from LuluTest.page_element_interface import browser_factory
+from LuluTest.page_element_interface.browser_options import BrowserOptions
 
 
 def load_element(driver, element):
@@ -21,13 +22,15 @@ def check_element_text(driver, element, text):
     return WebDriverWait(driver, 10).until(waiter)
 
 
-def load_driver(browser_type, options=None):
-    if options is None:
-        options = []
-    if 'not headless' not in options:
-        options = ['headless']
+def load_driver(browser_options=None):
+    if type(browser_options) == dict:
+        options = BrowserOptions(browser_options)
+    elif type(browser_options) is BrowserOptions:
+        options = browser_options
+    else:
+        options = BrowserOptions()
 
-    return browser_factory.new(browser_type, options)
+    return browser_factory.new(options)
 
 
 def get_element_by_resolver(element):

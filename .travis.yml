@@ -11,18 +11,33 @@ addons:
 
 install:
   - pip install -r requirements.txt
+    # Get Chrome and its driver
   - wget -N https://chromedriver.storage.googleapis.com/89.0.4389.23/chromedriver_linux64.zip -P ~/
   - unzip ~/chromedriver_linux64.zip -d ~/
   - rm ~/chromedriver_linux64.zip
   - sudo mv -f ~/chromedriver /usr/local/share/
   - sudo chmod +x /usr/local/share/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+    # Get Firefox and its driver
   - wget -N https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz -P ~/
   - tar -xzf ~/geckodriver-v0.26.0-linux64.tar.gz -C ~/
   - rm ~/geckodriver-v0.26.0-linux64.tar.gz
   - sudo mv -f ~/geckodriver /usr/local/share
   - sudo chmod +x /usr/local/share/geckodriver
   - sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
+    # Get Edge and its driver
+  - curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  - sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+  - sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'
+  - sudo rm microsoft.gpg
+  - sudo apt update
+  - sudo apt install microsoft-edge-dev
+  - wget https://msedgedriver.azureedge.net/91.0.852.0/edgedriver_linux64.zip -P ~/
+  - unzip ~/edgedriver_linux64.zip -d ~/
+  - rm ~/edgedriver_linux64.zip
+  - sudo mv -f ~/msedgedriver /usr/local/share/
+  - sudo chmod 777 /usr/local/share/msedgedriver
+  - sudo ln -s /usr/local/share/msedgedriver /usr/local/bin/msedgedriver
 
 
 script: python -m unittest discover tests
