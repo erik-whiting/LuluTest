@@ -2,6 +2,7 @@ import unittest
 
 from LuluTest.page import Page
 from LuluTest.action import Action
+from LuluTest.page_element_interface.browser_options import BrowserOptions
 
 
 class TestBrowsers(unittest.TestCase):
@@ -9,6 +10,7 @@ class TestBrowsers(unittest.TestCase):
     actions = None
 
     def _set_up(self, browser):
+        options_hash = BrowserOptions({'driver_type': browser})
         self.actions = Action(browser)
         self.actions.go(self.page)
 
