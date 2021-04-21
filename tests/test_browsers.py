@@ -8,9 +8,28 @@ from LuluTest.page_element_interface.browser_options import BrowserOptions
 class TestBrowsers(unittest.TestCase):
     page = Page('http://erikwhiting.com/newsOutlet')
     actions = None
+    import os
+    running_in_travis = os.getenv('TRAVIS')
 
     def _set_up(self, browser):
-        options_hash = BrowserOptions({'driver_type': browser})
+        if self.running_in_travis and browser.lower() == 'edge':
+            import shutil
+            # Debugging statement, remove when this is figured out
+            print('***USING TRAVIS***')
+            print('Debugging statements start here')
+            print(f'shutil.which("microsoft-edge-dev") = {shutil.which("microsoft-edge-dev")}')
+            print(f'shutil.which("msedgedriver") = {shutil.which("msedgedriver")}')
+            # Delete above
+            options_hash = BrowserOptions({
+                'driver_type': browser,
+                'headless': True,
+                'browser_binary_location': shutil.which('microsoft-edge-dev'),
+                'webdriver_location': shutil.which('msedgedriver'),
+                'operating_system': 'LINUX'
+            })
+        else:
+            options_hash = BrowserOptions({'driver_type': browser})
+
         self.actions = Action(options_hash)
         self.actions.go(self.page)
 
