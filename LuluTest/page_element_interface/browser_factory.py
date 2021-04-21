@@ -33,7 +33,7 @@ def __edge_driver(browser_options):
     if browser_options.headless:
         edge_options.add_argument('headless')
     if browser_options.browser_binary_location:
-        edge_options.binary_location(browser_options.browser_binary_location)
+        edge_options.binary_location = browser_options.browser_binary_location
     if browser_options.operating_system:
         edge_options.set_capability('platform', 'LINUX')
     if browser_options.webdriver_location:
