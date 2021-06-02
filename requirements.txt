@@ -2,4 +2,4 @@
 overloading==0.5.0
 PyYAML==5.4.1
 selenium==3.141.0
-urllib3==1.25.8
+urllib3==1.26.5
