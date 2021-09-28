@@ -20,12 +20,8 @@ jobs:
           pip install -r requirements.txt
       - name: Install Chrome driver
         run: |
-          wget -N https://chromedriver.storage.googleapis.com/93.0.4577.15/chromedriver_linux64.zip -P ~/
-          unzip ~/chromedriver_linux64.zip -d ~/
-          rm ~/chromedriver_linux64.zip
-          sudo mv -f ~/chromedriver /usr/local/share/
-          sudo chmod +x /usr/local/share/chromedriver
-          sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install ./google-chrome*.deb
       - name: Install Firefox driver
         run: |
           wget -N https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz -P ~/
