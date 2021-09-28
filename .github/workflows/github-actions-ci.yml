@@ -39,7 +39,7 @@ jobs:
           sudo rm microsoft.gpg
           sudo apt update
           sudo apt install microsoft-edge-dev
-          wget https://msedgedriver.azureedge.net/91.0.852.0/edgedriver_linux64.zip -P ~/
+          wget https://msedgedriver.azureedge.net/95.0.1020.5/edgedriver_linux64.zip -P ~/
           unzip ~/edgedriver_linux64.zip -d ~/
           rm ~/edgedriver_linux64.zip
           sudo mv -f ~/msedgedriver /usr/local/share/
