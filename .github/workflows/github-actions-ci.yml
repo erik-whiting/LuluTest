@@ -36,4 +36,5 @@ jobs:
           sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
 
       - name: Run Tests
-        python -m unittest discover tests
+        run: |
+          python -m unittest discover tests
