@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 .*
+!.github
 
 # Distribution / packaging
 .Python
