@@ -31,6 +31,21 @@ jobs:
           sudo chmod +x /usr/local/share/geckodriver
           sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
 
+      - name: Install Edge driver
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+          sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+          sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'
+          sudo rm microsoft.gpg
+          sudo apt update
+          sudo apt install microsoft-edge-dev
+          wget https://msedgedriver.azureedge.net/91.0.852.0/edgedriver_linux64.zip -P ~/
+          unzip ~/edgedriver_linux64.zip -d ~/
+          rm ~/edgedriver_linux64.zip
+          sudo mv -f ~/msedgedriver /usr/local/share/
+          sudo chmod 777 /usr/local/share/msedgedriver
+          sudo ln -s /usr/local/share/msedgedriver /usr/local/bin/msedgedriver
+
       - name: Run Tests
         run: |
           python -m unittest discover tests
