@@ -16,7 +16,7 @@ jobs:
           python-version: ${{ matrix.python-versioon }}
       - name: Install Python requirements
         run: |
-          python -m pip install --upgrade-pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Install Chrome driver
         run: |
