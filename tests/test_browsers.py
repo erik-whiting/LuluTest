@@ -9,7 +9,7 @@ class TestBrowsers(unittest.TestCase):
     page = Page('http://erikwhiting.com/newsOutlet')
     actions = None
     import os
-    running_in_travis = os.getenv('TRAVIS')
+    running_in_travis = os.getenv('RUNNING_IN_CI')
 
     def _set_up(self, browser):
         if self.running_in_travis and browser.lower() == 'edge':
