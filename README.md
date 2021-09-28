@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/erik-whiting/LuluTest.svg?branch=development)](https://travis-ci.org/erik-whiting/LuluTest)
+![Build Status](https://github.com/erik-whiting/LuluTest/actions/workflows/github-actions-ci.yml/badge.svg)
 # LuluTest
 LuluTest is an open source browser automation framework using Python and Selenium.
 It is relatively lightweight in that it mostly provides wrappers for 3rd party library methods that make browser automation and testing more intuitive.
