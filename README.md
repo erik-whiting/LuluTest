@@ -8,19 +8,13 @@ The ultimate goal of LuluTest is to get people writing robust automated browser 
 The following Github users have contributed in some way to LuluTest and I want to thank them so much for their time, effort, and skill.
 
 @wangonya
-
+@nicpayne713
 @benjifs
-
 @alwinaind
-
 @ddrm86
-
 @MarioHdpz
-
 @FarhiaM
-
 @CarolinaKinetic
-
 
 ## Basic Usage
 
