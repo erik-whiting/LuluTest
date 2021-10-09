@@ -51,3 +51,15 @@ jobs:
       - name: Run Tests
         run: |
           python -m unittest discover tests
+
+      - name: Install pypa/build
+        run: |  
+          python3 -m pip install build --user
+      - name: Build a binary wheel and a source tarball
+        run: |
+          python3 -m build --sdist --wheel --outdir dist/ .
+      - name: Publish distribution 📦 to PyPI
+        if: startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
