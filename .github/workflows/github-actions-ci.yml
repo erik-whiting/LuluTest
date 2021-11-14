@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUNNING_IN_CI: True
+      CODECOV_TOKEN: 36f388aa-ac7c-4fd5-86e1-a6007d4e9627
     strategy:
       matrix:
         python-version: [3.7, 3.8, 3.9]
@@ -63,3 +64,12 @@ jobs:
         uses: pypa/gh-action-pypi-publish@master
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+        run: |
+          pip install coverage
+          coverage run -m unittest discover
+          coverage xml
