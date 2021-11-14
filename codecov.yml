@@ -1,0 +1,7 @@
+codecov:
+  token: "36f388aa-ac7c-4fd5-86e1-a6007d4e9627"
+  bot: "test-coverage-bot"
+coverage:
+  range: "80...100"
+ignore:
+  - "tests/*"
