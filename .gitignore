@@ -8,6 +8,7 @@ __pycache__/
 
 .*
 !.github
+!.coveragerc
 
 # Distribution / packaging
 .Python
