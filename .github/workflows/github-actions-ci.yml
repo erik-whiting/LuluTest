@@ -9,7 +9,7 @@ jobs:
       CODECOV_TOKEN: 36f388aa-ac7c-4fd5-86e1-a6007d4e9627
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.9, '3.10']
 
     steps:
       - uses: actions/checkout@v2
