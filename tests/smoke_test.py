@@ -1,6 +1,7 @@
 import unittest
 
 from LuluTest import *
+from LuluTest.lulu_exceptions import PageNotLoadedError
 
 
 class SmokeTest(unittest.TestCase):
@@ -63,3 +64,24 @@ class SmokeTest(unittest.TestCase):
         english_text = actions.check_element_text(news_site.get_element('english div'), "Hello")
         self.assertTrue(english_text)
         actions.close()
+
+    def test_element_actions(self):
+        page = Page('http://erikwhiting.com/newsOutlet')
+        actions = Action()
+        page.elements = [
+            PageElement(("id", "sourceNews"), "input box"),
+            PageElement(("id", "transmitter"), "button"),
+            PageElement(("id", "en1"), "english div")
+        ]
+        actions.go(page)
+        actions.input_text(page.get_element("input box"), "Hello")
+        actions.clear_text(page.get_element("input box"))
+        actions.click(page.get_element("button"))
+        self.assertTrue(actions.check_element_text(page.get_element("english div"), ""))
+        english_text = actions.check_element_text(page.get_element("english div"), "")
+        self.assertTrue(english_text)
+        actions.input_text(page.get_element("input box"), "Hello")
+        actions.clear(page.get_element("input box"))
+        actions.click(page.get_element("button"))
+        english_text = actions.check_element_text(page.get_element("english div"), "")
+        self.assertTrue(english_text)

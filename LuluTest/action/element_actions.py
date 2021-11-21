@@ -1,7 +1,7 @@
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
-from LuluTest.page_element_interface.IPageElement import load_element, check_element_text
+from LuluTest.page_element_interface.IPageElement import load_element, i_check_element_text
 
 
 class ElementActions:
@@ -42,7 +42,7 @@ class ElementActions:
         return driver_element.text
 
     def check_element_text(self, element, text):
-        driver_element = check_element_text(self.driver, element, text)
+        driver_element = i_check_element_text(self.driver, element, text)
         return driver_element
 
     def get_attribute(self, element, attribute):
