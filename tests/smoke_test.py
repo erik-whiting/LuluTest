@@ -77,6 +77,7 @@ class SmokeTest(unittest.TestCase):
         actions.input_text(page.get_element("input box"), "Hello")
         actions.clear_text(page.get_element("input box"))
         actions.click(page.get_element("button"))
+        self.assertTrue(actions.check_element_text(page.get_element("english div"), ""))
         english_text = actions.check_element_text(page.get_element("english div"), "")
         self.assertTrue(english_text)
         actions.input_text(page.get_element("input box"), "Hello")
