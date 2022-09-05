@@ -1,4 +1,4 @@
-from LuluTest.element import BaseElement, PageElement
+from LuluTest.element import BaseElement
 
 
 class AlertElement(BaseElement):
@@ -7,16 +7,16 @@ class AlertElement(BaseElement):
         self.is_alert_element = True
     @property
     def is_page_element(self):
-      return True
+      return False
 
     @is_page_element.setter
     def is_page_element(self, *args, **kwargs):
       # This property cannot be changed
-      return False
+      return True
 
     @property
     def is_alert_element(self):
-      return False
+      return True
 
     @is_alert_element.setter
     def is_alert_element(self, *args, **kwargs):
