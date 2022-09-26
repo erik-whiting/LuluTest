@@ -1,5 +1,6 @@
 class Error(Exception):
     """Base exception for LuluTest"""
+
     pass
 
 
@@ -9,6 +10,7 @@ class PageNotLoadedError(Error):
     to have been "gone to." We don't want to fail this silently
     to avoid false positives.
     """
+
     pass
 
 
@@ -18,6 +20,7 @@ class NoElementWithNameInPage(Error):
     from a page object, but an element with that name does
     not exist.
     """
+
     pass
 
 
@@ -27,4 +30,5 @@ class TooManyElementsWithNameInPage(Error):
     from a page object, but there are multiple elements with
     that name.
     """
+
     pass

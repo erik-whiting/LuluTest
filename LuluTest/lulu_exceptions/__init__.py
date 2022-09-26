@@ -1,5 +1,3 @@
 from .LuluExceptions import *
-__all__ = [
-    'LuluExceptions'
-]
 
+__all__ = ["LuluExceptions"]

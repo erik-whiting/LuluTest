@@ -3,11 +3,11 @@ from .page_actions import PageActions
 from .element_actions import ElementActions
 
 __all__ = [
-    'Action',
-    'PageActions',
-    'ElementActions',
-    'page_action_map',
-    'element_action_map'
+    "Action",
+    "PageActions",
+    "ElementActions",
+    "page_action_map",
+    "element_action_map",
 ]
 
 page_action_map = {
@@ -16,7 +16,7 @@ page_action_map = {
     "close": PageActions.close,
     "refresh": PageActions.refresh,
     "get source": PageActions.get_page_source,
-    "get url": PageActions.get_url
+    "get url": PageActions.get_url,
 }
 
 element_action_map = {
@@ -28,5 +28,5 @@ element_action_map = {
     "get attribute": ElementActions.get_element_attribute,
     "check text": ElementActions.check_element_text,
     "accept": ElementActions.accept,
-    "dismiss": ElementActions.dismiss
+    "dismiss": ElementActions.dismiss,
 }
