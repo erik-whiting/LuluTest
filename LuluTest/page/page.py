@@ -13,7 +13,9 @@ class Page:
         if isinstance(getter, int):
             element = self.elements[getter]
         elif isinstance(getter, str):
-            elements_found_array = [elem for elem in self.elements if elem.name == getter]
+            elements_found_array = [
+                elem for elem in self.elements if elem.name == getter
+            ]
             element = self.resolve_found_elements(elements_found_array)
         return element
 
