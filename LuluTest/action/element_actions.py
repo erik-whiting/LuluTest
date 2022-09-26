@@ -1,7 +1,10 @@
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
-from LuluTest.page_element_interface.IPageElement import load_element, i_check_element_text
+from LuluTest.page_element_interface.IPageElement import (
+    load_element,
+    i_check_element_text,
+)
 
 
 class ElementActions:
@@ -22,7 +25,7 @@ class ElementActions:
 
     def clear_text(self, element):
         driver_element = load_element(self.driver, element)
-        driver_element.send_keys(Keys.CONTROL + 'a')
+        driver_element.send_keys(Keys.CONTROL + "a")
         driver_element.send_keys(Keys.DELETE)
 
     def select_drop_down(self, element, visible_text):

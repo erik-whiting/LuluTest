@@ -16,15 +16,13 @@ class Steps:
         resolved_step = None
         if len(step) == 2:
             resolved_step = Step(
-                action_object=self.action_object,
-                operation=step[0],
-                subject=step[1]
+                action_object=self.action_object, operation=step[0], subject=step[1]
             )
         elif len(step) == 3:
             resolved_step = Step(
                 action_object=self.action_object,
                 operation=step[0],
                 subject=step[1],
-                data=step[2]
+                data=step[2],
             )
         return resolved_step

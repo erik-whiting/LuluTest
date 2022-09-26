@@ -43,7 +43,7 @@ def get_element_by_resolver(element):
         "link text": By.LINK_TEXT,
         "partial link": By.PARTIAL_LINK_TEXT,
         "name": By.NAME,
-        "tag": By.TAG_NAME
+        "tag": By.TAG_NAME,
     }
     by_indicator = converter.get(indicator.lower())
     return by_indicator, value
