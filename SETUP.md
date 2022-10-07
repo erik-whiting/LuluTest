@@ -7,7 +7,7 @@ to getting ready to start coding. There are a few things you need first:
 * SSH key to push from command line
   * It's not as hard as it sounds, check out [this guide](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 * Python!
-  * Currently the supported version is Python 3.6
+  * Currently the supported version is Python 3.7
 * virtualenv (recommended)
   * Just run `pip install virtualenv`
 
