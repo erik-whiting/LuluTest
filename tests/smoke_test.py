@@ -12,7 +12,7 @@ class SmokeTest(unittest.TestCase):
         actions.go(erik_whiting)
         actions.click(link)
         url = actions.get_url()
-        self.assertEqual(url, "https://blog.erikwhiting.com/")
+        self.assertEqual(url, "https://erikscode.space/")
 
     def test_page_not_loaded_exception(self):
         actions = Action()
@@ -42,7 +42,7 @@ class SmokeTest(unittest.TestCase):
         step1 = Step(actions, "click", erik_whiting.get_element("blog link"))
         DoStep(step1)
         url = actions.get_url()
-        self.assertEqual(url, "https://blog.erikwhiting.com/")
+        self.assertEqual(url, "https://erikscode.space/")
         actions.close()
 
     def test_steps(self):
